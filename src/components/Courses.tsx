@@ -25,10 +25,10 @@ export const Courses = () => {
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white dark:from-black to-transparent z-[5] pointer-events-none" />
 
       {/* Background Blurs */}
-      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-orange-900/20 rounded-full blur-[60px] md:blur-[120px] pointer-events-none will-change-transform" />
-      <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[60px] md:blur-[120px] pointer-events-none will-change-transform" />
+      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-orange-900/20 rounded-full blur-[40px] md:blur-[80px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[40px] md:blur-[80px] pointer-events-none" />
       {/* Bottom transition blur */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-brand/5 blur-[50px] md:blur-[100px] pointer-events-none will-change-transform" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-brand/5 blur-[30px] md:blur-[60px] pointer-events-none" />
 
       <div className="relative z-10 container mx-auto px-4">
         <motion.h2 
@@ -61,8 +61,8 @@ export const Courses = () => {
             </div>
 
             <ul className="space-y-5 mb-8 flex-grow">
-              {featuresBasic.map((feature, idx) => (
-                <li key={idx} className="flex items-center text-gray-700 dark:text-gray-300 font-medium">
+              {featuresBasic.map((feature) => (
+                <li key={feature} className="flex items-center text-gray-700 dark:text-gray-300 font-medium">
                   <div className="w-6 h-6 rounded-full bg-black/10 dark:bg-white/10 flex items-center justify-center mr-4 flex-shrink-0">
                     <Check className="w-3.5 h-3.5 text-black/50 dark:text-white/50" />
                   </div>
@@ -91,8 +91,8 @@ export const Courses = () => {
             </div>
 
             <ul className="space-y-5 mb-8 flex-grow">
-              {featuresVIP.map((feature, idx) => (
-                <li key={idx} className="flex items-center text-gray-700 dark:text-gray-300 font-medium">
+              {featuresVIP.map((feature) => (
+                <li key={feature} className="flex items-center text-gray-700 dark:text-gray-300 font-medium">
                   <div className="w-6 h-6 rounded-full bg-brand/20 flex items-center justify-center mr-4 flex-shrink-0">
                     <Check className="w-3.5 h-3.5 text-brand" />
                   </div>

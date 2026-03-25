@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
+const PHONE_HREF = "tel:+79991234567";
+const PHONE_DISPLAY = "+7 (999) 123-45-67";
+
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
@@ -45,38 +48,41 @@ export const Header = () => {
         <div className="container mx-auto px-4 h-full flex items-center justify-center relative">
           
           {/* Mobile Menu Button (Left) */}
-          <button 
+          <button
             className="md:hidden absolute left-4 w-10 h-10 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center text-black dark:text-white hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors z-20"
             onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Открыть меню"
+            aria-expanded={isMobileMenuOpen}
           >
             <Menu className="w-5 h-5" />
           </button>
 
            {/* Mobile Phone Button (Right) */}
            <a 
-              href="tel:+79991234567" 
+              href={PHONE_HREF} 
               className="md:hidden absolute right-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 transition-all shadow-[0_0_20px_rgba(234,88,12,0.3)] shrink-0 z-20"
             >
               <Phone className="w-3.5 h-3.5 text-white fill-current" />
-              <span className="text-[10px] font-bold text-white leading-tight">+7 (999) 123-45-67</span>
+              <span className="text-[10px] font-bold text-white leading-tight">{PHONE_DISPLAY}</span>
             </a>
 
           {/* Main Navigation Container */}
           <div className="flex items-center gap-2 md:gap-8">
             {/* Left Navigation Links */}
             <nav className="hidden md:flex items-center gap-8">
-              <a href="#courses" className="text-sm font-bold uppercase tracking-wide hover:text-brand transition-colors text-black dark:text-white">
+              <a href="#courses" className="text-sm font-bold uppercase tracking-wide hover:text-brand dark:hover:text-brand transition-colors text-black dark:text-white">
                 Курсы
               </a>
-              <a href="#instructors" className="text-sm font-bold uppercase tracking-wide hover:text-brand transition-colors text-black dark:text-white">
+              <a href="#instructors" className="text-sm font-bold uppercase tracking-wide hover:text-brand dark:hover:text-brand transition-colors text-black dark:text-white">
                 Инструкторы
               </a>
             </nav>
 
             {/* Theme Toggle */}
-            <button 
+            <button
               onClick={toggleTheme}
               className="absolute left-20 md:static z-20 flex group w-10 h-10 rounded-full bg-gray-100 dark:bg-zinc-800 items-center justify-center hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
+              aria-label={theme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на тёмную тему'}
             >
               {theme === 'dark' ? (
                 <Sun className="w-5 h-5 text-black dark:text-white group-hover:text-brand transition-colors" />
@@ -94,15 +100,15 @@ export const Header = () => {
 
             {/* Phone Button - Desktop */}
             <a 
-              href="tel:+79991234567" 
+              href={PHONE_HREF} 
               className="hidden lg:flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 transition-all shadow-[0_0_20px_rgba(234,88,12,0.3)] shrink-0"
             >
               <Phone className="w-4 h-4 text-white fill-current" />
-              <span className="text-sm font-bold text-white">+7 (999) 123-45-67</span>
+              <span className="text-sm font-bold text-white">{PHONE_DISPLAY}</span>
             </a>
 
              {/* Right Navigation Link */}
-             <a href="#reviews" className="hidden md:block text-sm font-bold uppercase tracking-wide hover:text-brand transition-colors text-black dark:text-white">
+             <a href="#reviews" className="hidden md:block text-sm font-bold uppercase tracking-wide hover:text-brand dark:hover:text-brand transition-colors text-black dark:text-white">
                 Отзывы
               </a>
               
@@ -124,9 +130,10 @@ export const Header = () => {
             >
               <div className="flex items-center justify-between p-4 border-b border-black/10 dark:border-white/10">
                 <span className="text-xl font-bold text-black dark:text-white">Меню</span>
-                <button 
+                <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center active:scale-95 transition-all"
+                  aria-label="Закрыть меню"
                 >
                   <X className="w-6 h-6 text-black dark:text-white" />
                 </button>
@@ -162,11 +169,11 @@ export const Header = () => {
 
               <div className="p-6 pb-10 border-t border-black/10 dark:border-white/10 flex flex-col gap-4">
                 <a 
-                  href="tel:+79991234567" 
+                  href={PHONE_HREF} 
                   className="flex items-center justify-center gap-3 px-6 py-5 rounded-2xl bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold w-full text-lg shadow-[0_0_30px_rgba(234,88,12,0.4)] active:scale-[0.98] transition-transform"
                 >
                   <Phone className="w-6 h-6 fill-current" />
-                  <span>+7 (999) 123-45-67</span>
+                  <span>{PHONE_DISPLAY}</span>
                 </a>
                 
                 <div className="flex justify-center mt-2">

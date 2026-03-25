@@ -39,7 +39,7 @@ export const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none"
           >
-            <div className="bg-white dark:bg-[#121212] border border-black/10 dark:border-white/10 w-full max-w-md rounded-3xl p-5 md:p-8 shadow-2xl pointer-events-auto relative max-h-[90vh] overflow-y-auto custom-scrollbar transition-colors duration-300">
+            <div className="bg-white dark:bg-[#121212] border border-black/10 dark:border-white/10 w-full max-w-md rounded-3xl p-5 md:p-8 shadow-2xl pointer-events-auto relative max-h-[90vh] overflow-y-auto transition-colors duration-300">
               <div className="flex items-center justify-between mb-6">
                 {title && <h3 className="text-xl md:text-2xl font-bold text-black dark:text-white">{title}</h3>}
                 <button

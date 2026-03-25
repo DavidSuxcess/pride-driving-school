@@ -22,8 +22,9 @@ export const Hero = ({ onOpenEnrollment }: HeroProps) => {
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          src="images/logo.svg" 
-          alt="Lion Background" 
+          src="images/logo.svg"
+          alt="Lion Background"
+          decoding="async"
           className="w-full h-full object-contain opacity-20 md:opacity-40 will-change-transform"
           style={{
             maskImage: 'linear-gradient(to left, black 0%, transparent 100%)',
