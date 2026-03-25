@@ -12,11 +12,11 @@ interface Review {
 }
 
 const studentPhotos = [
-  "/images/student_1.jpg",
-  "/images/student_2.jpg",
-  "/images/student_3.jpg",
-  "/images/student_4.jpg",
-  "/images/student_5.jpg",
+  `${import.meta.env.BASE_URL}images/student_1.jpg`,
+  `${import.meta.env.BASE_URL}images/student_2.jpg`,
+  `${import.meta.env.BASE_URL}images/student_3.jpg`,
+  `${import.meta.env.BASE_URL}images/student_4.jpg`,
+  `${import.meta.env.BASE_URL}images/student_5.jpg`,
 ];
 const extendedPhotos = [...studentPhotos, ...studentPhotos, ...studentPhotos, ...studentPhotos, ...studentPhotos];
 

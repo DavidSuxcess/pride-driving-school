@@ -6,7 +6,7 @@ const instructors = [
   {
     name: "Лев",
     title: "Старший инструктор",
-    image: "/images/instructor_lev.jpg",
+    image: `${import.meta.env.BASE_URL}images/instructor_lev.jpg`,
     description: [
       "• Стаж вождения: 17 лет, стаж преподавания: более 7 лет.",
       "• Использую знания психологии для индивидуального подхода к каждому ученику.",
@@ -18,7 +18,7 @@ const instructors = [
   {
     name: "Дмитрий Андреевич Белоногов",
     title: "Инструктор",
-    image: "/images/instructor_dmitry_b.jpg",
+    image: `${import.meta.env.BASE_URL}images/instructor_dmitry_b.jpg`,
     description: [
       "• Стаж вождения: 10 лет.",
       "• Внимательный и обстоятельный подход к каждому занятию.",
@@ -30,7 +30,7 @@ const instructors = [
   {
     name: "Дмитрий",
     title: "Инструктор МКПП / АКПП",
-    image: "/images/instructor_dmitry.jpg",
+    image: `${import.meta.env.BASE_URL}images/instructor_dmitry.jpg`,
     description: [
       "• Обучаю на МКПП («механика») и АКПП («автомат»).",
       "• Выстраиваю индивидуальную программу: отрабатываем сложные маршруты и уверенную езду.",
