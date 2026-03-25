@@ -18,7 +18,7 @@ const studentPhotos = [
   `${import.meta.env.BASE_URL}images/student_4.jpg`,
   `${import.meta.env.BASE_URL}images/student_5.jpg`,
 ];
-const extendedPhotos = [...studentPhotos, ...studentPhotos, ...studentPhotos, ...studentPhotos, ...studentPhotos];
+const extendedPhotos = [...studentPhotos, ...studentPhotos, ...studentPhotos];
 
 const reviews: Review[] = [
   {
@@ -198,21 +198,17 @@ const AVITO_URL =
 const topRow = reviews.slice(0, 12);
 const bottomRow = reviews.slice(12, 24);
 
-const ReviewCard = memo(({ review, index }: { review: Review; index: number }) => {
+const ReviewCard = memo(({ review }: { review: Review }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const shortText = review.text.length > 100 ? review.text.slice(0, 100) + "..." : review.text;
 
   return (
-    <motion.a
+    <a
       href={AVITO_URL}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
       style={{ display: 'flex' }}
-      className="min-w-[300px] md:min-w-[360px] bg-gray-50 dark:bg-[#121215] rounded-2xl p-6 border border-black/5 dark:border-white/[0.06] flex-shrink-0 flex-col gap-4 hover:border-black/10 dark:hover:border-white/10 transition-all duration-300 group relative overflow-hidden"
+      className="min-w-[260px] md:min-w-[360px] bg-gray-50 dark:bg-[#121215] rounded-2xl p-5 md:p-6 border border-black/5 dark:border-white/[0.06] flex-shrink-0 flex-col gap-3 md:gap-4 hover:border-black/10 dark:hover:border-white/10 transition-colors duration-200 group relative overflow-hidden"
     >
       {/* Decorative quote */}
       <Quote className="absolute top-4 right-4 w-8 h-8 text-brand/10 group-hover:text-brand/20 transition-colors" />
@@ -255,20 +251,19 @@ const ReviewCard = memo(({ review, index }: { review: Review; index: number }) =
       <div className="flex items-center justify-end mt-auto">
         <ExternalLink className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
-    </motion.a>
+    </a>
   );
 });
 
 const ScrollRow = ({ items, direction = "left" }: { items: Review[]; direction?: "left" | "right" }) => {
-  // Duplicate for infinite scroll
-  const extended = [...items, ...items, ...items, ...items];
+  const extended = [...items, ...items, ...items];
   const animClass = direction === "left" ? "animate-scroll-slow" : "animate-scroll-reverse-slow";
 
   return (
     <div className="w-full overflow-hidden">
-      <div className={`flex gap-5 ${animClass} w-max hover:[animation-play-state:paused] motion-reduce:[animation-play-state:paused]`}>
+      <div className={`flex gap-4 md:gap-5 ${animClass} w-max hover:[animation-play-state:paused] motion-reduce:[animation-play-state:paused]`} style={{ willChange: 'transform' }}>
         {extended.map((review, idx) => (
-          <ReviewCard key={`${review.name}-${review.date}-${idx}`} review={review} index={0} />
+          <ReviewCard key={`${review.name}-${review.date}-${idx}`} review={review} />
         ))}
       </div>
     </div>
@@ -301,25 +296,19 @@ export const Reviews = () => {
           </motion.h2>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="w-full overflow-hidden pb-8"
-        >
-          <div className="flex gap-6 animate-scroll w-max hover:[animation-play-state:paused] motion-reduce:[animation-play-state:paused]">
+        <div className="w-full overflow-hidden pb-8">
+          <div className="flex gap-4 md:gap-6 animate-scroll w-max hover:[animation-play-state:paused] motion-reduce:[animation-play-state:paused]" style={{ willChange: 'transform' }}>
             {extendedPhotos.map((src, idx) => (
               <div
                 key={idx}
                 onClick={() => setSelectedPhoto(src)}
-                className="min-w-[200px] h-[280px] md:min-w-[240px] md:h-[320px] rounded-2xl overflow-hidden flex-shrink-0 hover:scale-105 transition-transform duration-300 cursor-zoom-in"
+                className="min-w-[160px] h-[220px] md:min-w-[240px] md:h-[320px] rounded-xl md:rounded-2xl overflow-hidden flex-shrink-0 active:scale-95 md:hover:scale-105 transition-transform duration-200 cursor-zoom-in"
               >
                 <img src={src} alt="Курсант" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Header for Reviews */}
         <div className="container mx-auto px-4 mb-6">
@@ -360,10 +349,12 @@ export const Reviews = () => {
           <span className="text-gray-500 text-sm">• 54+ отзыва</span>
         </motion.div>
 
-        {/* Scrolling Rows */}
-        <div className="space-y-5 pb-8">
+        {/* Scrolling Rows — 2 rows on desktop, 1 on mobile */}
+        <div className="space-y-4 md:space-y-5 pb-8">
           <ScrollRow items={topRow} direction="left" />
-          <ScrollRow items={bottomRow} direction="right" />
+          <div className="hidden md:block">
+            <ScrollRow items={bottomRow} direction="right" />
+          </div>
         </div>
 
         {/* Avito CTA Block */}
