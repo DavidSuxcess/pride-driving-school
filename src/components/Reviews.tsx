@@ -208,7 +208,7 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
       target="_blank"
       rel="noopener noreferrer"
       style={{ display: 'flex' }}
-      className="min-w-[260px] md:min-w-[360px] bg-gray-50 dark:bg-[#121215] rounded-2xl p-5 md:p-6 border border-black/5 dark:border-white/[0.06] flex-shrink-0 flex-col gap-3 md:gap-4 hover:border-black/10 dark:hover:border-white/10 transition-colors duration-200 group relative overflow-hidden"
+      className="w-[260px] md:w-[360px] h-[180px] md:h-[200px] bg-gray-50 dark:bg-[#121215] rounded-2xl p-5 md:p-6 border border-black/5 dark:border-white/[0.06] flex-shrink-0 flex-col gap-3 md:gap-4 hover:border-black/10 dark:hover:border-white/10 transition-colors duration-200 group relative overflow-hidden"
     >
       {/* Decorative quote */}
       <Quote className="absolute top-4 right-4 w-8 h-8 text-brand/10 group-hover:text-brand/20 transition-colors" />
@@ -232,7 +232,7 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
       </div>
 
       {/* Text */}
-      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed flex-1 relative z-10">
+      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed relative z-10 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
         {isExpanded ? review.text : shortText}
         {review.text.length > 100 && (
           <button
@@ -302,7 +302,7 @@ export const Reviews = () => {
               <div
                 key={idx}
                 onClick={() => setSelectedPhoto(src)}
-                className="min-w-[160px] h-[220px] md:min-w-[240px] md:h-[320px] rounded-xl md:rounded-2xl overflow-hidden flex-shrink-0 active:scale-95 md:hover:scale-105 transition-transform duration-200 cursor-zoom-in"
+                className="w-[160px] h-[220px] md:w-[240px] md:h-[320px] rounded-xl md:rounded-2xl overflow-hidden flex-shrink-0 active:scale-95 md:hover:scale-105 transition-transform duration-200 cursor-zoom-in"
               >
                 <img src={src} alt="Курсант" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
