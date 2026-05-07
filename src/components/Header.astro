@@ -1,0 +1,61 @@
+---
+import PrLion from './PrLion.astro';
+---
+
+<header
+  id="top"
+  style="position:sticky;top:0;z-index:50;background:rgba(10,10,10,0.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--pr-line);"
+>
+  <div style="max-width:1760px;margin:0 auto;padding:24px 80px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <PrLion size={56} color="#E45400" />
+      <div style="display:flex;flex-direction:column;line-height:1;">
+        <span style="font-family:var(--pr-display);font-size:22px;letter-spacing:0.04em;font-weight:700;">ПРАЙД</span>
+        <span style="font-family:var(--pr-mono);font-size:9px;letter-spacing:0.2em;color:var(--pr-mute);margin-top:3px;">
+          ШКОЛА ВОЖДЕНИЯ
+        </span>
+      </div>
+    </div>
+
+    <nav class="pr-nav-desktop" style="display:flex;align-items:center;gap:36px;font-size:14px;font-weight:600;">
+      <a class="pr-link-u" href="#courses">Курсы</a>
+      <a class="pr-link-u" href="#instructors">Инструкторы</a>
+      <a class="pr-link-u" href="#reviews">Отзывы</a>
+      <a class="pr-link-u" href="#faq">Вопросы</a>
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="pr-phone-block" style="text-align:right;">
+        <div style="font-family:var(--pr-mono);font-size:10px;color:var(--pr-mute);letter-spacing:0.16em;">
+          ОТКРЫТО · ДО 21:00
+        </div>
+        <div style="font-weight:700;font-size:15px;margin-top:2px;">+7 (391) 234-56-78</div>
+      </div>
+      <button
+        type="button"
+        data-pr-enroll-trigger
+        class="pr-btn-yellow"
+        style="padding:12px 22px;font-size:12px;"
+      >
+        Записаться <span style="font-size:16px;">→</span>
+      </button>
+      <button
+        type="button"
+        data-pr-burger
+        class="pr-burger-btn"
+        aria-label="Открыть меню"
+        style="display:none;width:38px;height:38px;border-radius:999px;background:var(--pr-yellow);color:#0A0A0A;border:0;font-size:18px;font-weight:800;cursor:pointer;"
+      >
+        ≡
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  @media (max-width: 767px) {
+    .pr-nav-desktop, .pr-phone-block { display: none !important; }
+    [data-pr-enroll-trigger] { display: none !important; }
+    [data-pr-burger] { display: flex !important; align-items: center; justify-content: center; }
+  }
+</style>
