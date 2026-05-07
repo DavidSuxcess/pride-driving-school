@@ -642,7 +642,7 @@ const PrMSFooter = () => (
     {/* Big wordmark */}
     <div style={{
       fontFamily: 'var(--pr-display)', fontSize: 130, lineHeight: 0.85, letterSpacing: '-0.02em',
-      color: 'var(--pr-yellow)', marginBottom: 20,
+      color: 'var(--pr-yellow)', marginBottom: 20, transform: 'translateX(-6px)',
     }}>ПРАЙД</div>
     <div style={{ marginBottom: 32 }}>
       <div className="pr-num" style={{ fontSize: 9 }}>КРАСНОЯРСК</div>
