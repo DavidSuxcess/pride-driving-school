@@ -41,7 +41,9 @@ const {
       <div class="pr-loader-text">ПРАЙД</div>
     </div>
     <ResponsiveZoom client:load />
-    <slot />
+    <div class="pr-site">
+      <slot />
+    </div>
 
     <script is:inline>
       const loader = document.getElementById('pr-loader');
