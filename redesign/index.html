@@ -9,7 +9,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --pr-yellow: #E45400;
@@ -19,7 +19,7 @@
     --pr-paper: #F2EFE6;
     --pr-paper-ink: #1A1A1A;
 
-    --pr-display: 'Anton', 'Bebas Neue', 'Arial Black', sans-serif;
+    --pr-display: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif;
     --pr-text: 'Manrope', system-ui, sans-serif;
     --pr-mono: 'JetBrains Mono', ui-monospace, monospace;
 
@@ -46,10 +46,13 @@
   a { color: inherit; text-decoration: none; }
 
   .pr-site h1, .pr-site h2, .pr-site h3, .pr-site h4 {
-    font-family: var(--pr-display); font-weight: 400;
+    font-family: var(--pr-display); font-weight: 700;
     margin: 0; text-transform: uppercase;
     letter-spacing: -0.01em; line-height: 0.9;
   }
+  /* Any element with inline fontFamily: var(--pr-display) renders bold (Oswald 700) */
+  [style*="--pr-display"] { font-weight: 700; }
+  .pr-ticker { font-weight: 700; }
   .pr-site p { margin: 0; }
 
   .pr-btn-yellow {
