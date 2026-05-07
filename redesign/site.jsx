@@ -8,7 +8,7 @@
 
 const PrideSite = () => {
   return (
-    <div className="pr-site" style={{ width: 1920, position: 'relative' }}>
+    <div className="pr-site" style={{ width: '100%', position: 'relative' }}>
       <PrHeader />
       <PrHero />
       <PrMarquee />
