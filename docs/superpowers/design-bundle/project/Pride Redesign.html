@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ПРАЙД · Редизайн сайта автошколы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Палитра */
+    --pr-yellow: #E45400;
+    --pr-yellow-deep: #A33C00;
+    --pr-black: #0A0A0A;
+    --pr-graphite: #141414;
+    --pr-paper: #F2EFE6;
+    --pr-paper-ink: #1A1A1A;
+
+    /* Типографика */
+    --pr-display: 'Bebas Neue', 'Arial Black', sans-serif;
+    --pr-text: 'Manrope', system-ui, sans-serif;
+    --pr-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Линии и фон */
+    --pr-line: rgba(255, 255, 255, 0.08);
+    --pr-line-strong: rgba(255, 255, 255, 0.18);
+    --pr-mute: rgba(255, 255, 255, 0.5);
+    --pr-mute-2: rgba(255, 255, 255, 0.65);
+
+    /* Радиусы */
+    --pr-r-sm: 8px;
+    --pr-r-md: 14px;
+    --pr-r-lg: 20px;
+    --pr-r-xl: 28px;
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--pr-text);
+    background: #0A0A0A;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Site primitives ──────────────────────────────────────── */
+  .pr-site h1, .pr-site h2, .pr-site h3, .pr-site h4 {
+    font-family: var(--pr-display); font-weight: 400;
+    margin: 0; text-transform: uppercase;
+    letter-spacing: -0.01em; line-height: 0.9;
+  }
+  .pr-site p { margin: 0; }
+
+  /* Buttons */
+  .pr-btn-yellow {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--pr-yellow); color: var(--pr-black);
+    border: 0; border-radius: 999px;
+    padding: 16px 28px; font-weight: 800; font-size: 13px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-family: var(--pr-text);
+  }
+  .pr-btn-yellow:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(228,84,0,0.3); }
+
+  .pr-btn-black {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--pr-black); color: #fff;
+    border: 0; border-radius: 999px;
+    padding: 16px 26px; font-weight: 800; font-size: 13px;
+    letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+    font-family: var(--pr-text);
+  }
+
+  .pr-btn-ghost {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: #fff;
+    border: 1px solid var(--pr-line-strong); border-radius: 999px;
+    padding: 14px 22px; font-weight: 600; font-size: 13px;
+    cursor: pointer; font-family: var(--pr-text);
+  }
+  .pr-btn-ghost:hover { background: rgba(255,255,255,0.04); }
+
+  .pr-input {
+    width: 100%; background: transparent; border: 0; border-bottom: 1px solid rgba(255,255,255,0.18);
+    color: #fff; font-size: 22px; padding: 14px 0 12px; font-family: var(--pr-text);
+    outline: none; transition: border-color 0.15s ease;
+  }
+  .pr-input:focus { border-bottom-color: var(--pr-yellow); }
+  .pr-input::placeholder { color: rgba(255,255,255,0.3); }
+
+  /* Numeric / mono labels */
+  .pr-num {
+    font-family: var(--pr-mono); font-size: 11px;
+    letter-spacing: 0.16em; color: var(--pr-mute);
+    text-transform: uppercase;
+  }
+
+  /* Section eyebrow */
+  .pr-section-tag {
+    font-family: var(--pr-mono); font-size: 11px; letter-spacing: 0.2em;
+    color: var(--pr-mute-2); text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .pr-section-tag::before {
+    content: ''; width: 32px; height: 1px; background: var(--pr-yellow);
+  }
+
+  /* Stamp / status pill */
+  .pr-stamp {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--pr-mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 12px; border: 1px solid currentColor;
+    border-radius: 999px;
+  }
+
+  /* Mark / highlight on text */
+  .pr-mark {
+    background: var(--pr-yellow); color: var(--pr-black);
+    padding: 0 6px; border-radius: 2px;
+  }
+
+  /* Underline link on hover */
+  .pr-link-u { position: relative; padding-bottom: 2px; transition: color 0.15s ease; }
+  .pr-link-u::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: currentColor; transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .pr-link-u:hover::after { transform: scaleX(1); }
+
+  /* Card primitive (dark) */
+  .pr-card {
+    background: var(--pr-graphite); border: 1px solid var(--pr-line);
+    border-radius: var(--pr-r-lg); transition: border-color 0.15s ease, transform 0.2s ease;
+  }
+  .pr-card:hover { border-color: var(--pr-line-strong); }
+
+  .pr-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .pr-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+  /* Background patterns */
+  .pr-grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .pr-tape {
+    background-image: repeating-linear-gradient(
+      45deg, var(--pr-yellow) 0 16px, var(--pr-black) 16px 32px
+    );
+  }
+  .pr-tape-thin {
+    background-image: repeating-linear-gradient(
+      45deg, var(--pr-yellow) 0 8px, var(--pr-black) 8px 16px
+    );
+  }
+  .pr-road {
+    background-image: linear-gradient(to right, var(--pr-yellow) 0 60%, transparent 60% 100%);
+  }
+
+  /* Animations */
+  @keyframes pr-blink { 0%, 60% { opacity: 1; } 30% { opacity: 0.2; } }
+  .pr-blink { animation: pr-blink 1.6s ease-in-out infinite; display: inline-block; }
+
+  @keyframes pr-marquee { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+  @keyframes pr-marquee-rev { from { transform: translateX(-33.333%); } to { transform: translateX(0); } }
+  .pr-marquee-track { animation: pr-marquee 36s linear infinite; }
+  .pr-marquee-track-rev { animation: pr-marquee-rev 50s linear infinite; }
+  .pr-marquee-track-fast { animation: pr-marquee 24s linear infinite; }
+
+  /* Ticker (large numbers) */
+  .pr-ticker { font-family: var(--pr-display); }
+
+  /* ── Mobile menu open animation ─────────────────────── */
+  @keyframes pr-menu-bg {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pr-menu-item {
+    from { opacity: 0; transform: translateX(-22px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pr-menu-fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .pr-menu-root {
+    animation: pr-menu-bg 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .pr-menu-item {
+    animation: pr-menu-item 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .pr-menu-fade {
+    animation: pr-menu-fade 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .pr-menu-tape {
+    animation: pr-menu-tape 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes pr-menu-tape {
+    from { opacity: 0; transform: translateX(-60px) rotate(-8deg); }
+    to   { opacity: 0.9; transform: translateX(0) rotate(-8deg); }
+  }
+
+  /* ── Instructor profile open animation ───────────────── */
+  @keyframes pr-prof-photo {
+    from { opacity: 0; transform: scale(1.08); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pr-prof-rise {
+    from { opacity: 0; transform: translateY(20px); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  @keyframes pr-prof-num {
+    from { opacity: 0; transform: translateY(-14px) scale(0.9); }
+    to   { opacity: 0.95; transform: translateY(0) scale(1); }
+  }
+  @keyframes pr-prof-line {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+  .pr-prof-photo { animation: pr-prof-photo 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-prof-rise  { animation: pr-prof-rise  0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-prof-num   { animation: pr-prof-num   0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-prof-line  { animation: pr-prof-line  0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; transform-origin: top; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pr-menu-root, .pr-menu-item, .pr-menu-fade, .pr-menu-tape,
+    .pr-prof-photo, .pr-prof-rise, .pr-prof-num, .pr-prof-line {
+      animation: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Design canvas + iOS frame -->
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="ios-frame.jsx"></script>
+
+<!-- Pride components -->
+<script type="text/babel" src="site.jsx"></script>
+<script type="text/babel" src="mobile.jsx"></script>
+<script type="text/babel" src="mobile-site.jsx"></script>
+<script type="text/babel" src="mobile-menu.jsx"></script>
+<script type="text/babel" src="before-after.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+  function App() {
+    const DC = window.DesignCanvas;
+    const Sec = window.DCSection;
+    const Art = window.DCArtboard;
+    const IOS = window.IOSDevice;
+    return (
+      <DC
+        title="ПРАЙД · Редизайн сайта"
+        subtitle="Школа вождения · Красноярск · 6 артбордов: концепция, before/after, ключевые секции и мобильная версия"
+      >
+        {/* ── Section 1: концепция Before/After (главный артборд) ── */}
+        <Sec id="ba" title="01 · Главное: было / стало">
+          <Art id="before-after" label="Слайдер сравнения — потяните оранжевый круг" width={1440} height={900}>
+            <window.PrBeforeAfter />
+          </Art>
+        </Sec>
+
+        {/* ── Section 2: полный сайт ── */}
+        <Sec id="site" title="02 · Новый сайт · Desktop 1920">
+          <Art id="full-site" label="Главная — целая страница 1920×8200 (скроллится при фокусе)" width={1920} height={8200}>
+            <window.PrideSite />
+          </Art>
+        </Sec>
+
+        {/* ── Section 3: Mobile — длинная страница + детальные экраны рядом ── */}
+        <Sec id="mobile-site" title="03 · Мобильная версия">
+          <Art id="m-full" label="Главная — целая страница 390×8400 (скроллится при фокусе)" width={390} height={8400}>
+            <window.PrideMobileSite />
+          </Art>
+          <Art id="m-home" label="Главная · детальный экран" width={430} height={900}>
+            <IOS><window.PrMobileHome /></IOS>
+          </Art>
+          <Art id="m-menu" label="Открытое меню · бургер" width={430} height={900}>
+            <IOS><window.PrMobileMenu /></IOS>
+          </Art>
+          <Art id="m-courses" label="Курсы · табы и сравнение" width={430} height={900}>
+            <IOS><window.PrMobileCourses /></IOS>
+          </Art>
+          <Art id="m-instructor" label="Карточка инструктора" width={430} height={900}>
+            <IOS><window.PrMobileInstructor /></IOS>
+          </Art>
+          <Art id="m-reviews" label="Отзывы · детально" width={430} height={900}>
+            <IOS><window.PrMobileReviews /></IOS>
+          </Art>
+          <Art id="m-faq" label="Частые вопросы · детально" width={430} height={900}>
+            <IOS><window.PrMobileFaq /></IOS>
+          </Art>
+          <Art id="m-form" label="Запись · шаг 2" width={430} height={900}>
+            <IOS><window.PrMobileForm /></IOS>
+          </Art>
+          <Art id="m-footer" label="Контакт · подвал" width={430} height={900}>
+            <IOS><window.PrMobileFooter /></IOS>
+          </Art>
+        </Sec>
+      </DC>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
