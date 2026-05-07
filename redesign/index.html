@@ -20,12 +20,6 @@
     --pr-paper-ink: #1A1A1A;
 
     --pr-display: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif;
-  }
-  /* Desktop: вернуть Bebas Neue (кириллица падает на Arial Black — жирный) */
-  @media (min-width: 768px) {
-    :root {
-      --pr-display: 'Bebas Neue', 'Arial Black', 'Oswald', sans-serif;
-    }
     --pr-text: 'Manrope', system-ui, sans-serif;
     --pr-mono: 'JetBrains Mono', ui-monospace, monospace;
 
@@ -38,6 +32,12 @@
     --pr-r-md: 14px;
     --pr-r-lg: 20px;
     --pr-r-xl: 28px;
+  }
+  /* Desktop: Bebas Neue с фолбэком на Arial Black для кириллицы */
+  @media (min-width: 768px) {
+    :root {
+      --pr-display: 'Bebas Neue', 'Arial Black', 'Oswald', sans-serif;
+    }
   }
   html, body { margin: 0; padding: 0; overflow-x: hidden; scroll-behavior: smooth; }
   body {
