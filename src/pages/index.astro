@@ -9,6 +9,7 @@ import Trust from '../components/Trust.astro';
 import Reviews from '../components/Reviews.astro';
 import Faq from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
+import EnrollModal from '../islands/EnrollModal.tsx';
 ---
 
 <Base>
@@ -21,4 +22,5 @@ import Footer from '../components/Footer.astro';
   <Reviews />
   <Faq />
   <Footer />
+  <EnrollModal client:idle />
 </Base>
