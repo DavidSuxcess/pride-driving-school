@@ -2,24 +2,24 @@
 const socials = ['VK', 'TG', 'INST', 'YT'];
 ---
 
-<footer style="background:var(--pr-black);border-top:1px solid var(--pr-line);padding:100px 80px 60px;">
-  <div style="max-width:1760px;margin:0 auto;">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:60px;border-bottom:1px solid var(--pr-line);">
-      <div style="font-family:var(--pr-display);font-size:240px;line-height:0.85;letter-spacing:-0.02em;color:var(--pr-yellow);">
+<footer class="bg-pr-black border-t border-white/[0.08] px-5 pt-12 pb-7 md:px-20 md:pt-[100px] md:pb-[60px]">
+  <div class="max-w-[1760px] mx-auto">
+    <div class="md:flex md:items-center md:justify-between pb-7 md:pb-[60px] border-b border-white/[0.08]">
+      <div class="font-display text-[80px] md:text-[240px] leading-[0.85] -tracking-[0.02em] text-pr-yellow">
         ПРАЙД
       </div>
-      <div style="text-align:right;">
+      <div class="mt-5 md:mt-0 md:text-right">
         <div class="pr-num">КРАСНОЯРСК</div>
-        <div style="font-family:var(--pr-display);font-size:36px;margin-top:12px;">
+        <div class="font-display uppercase text-[22px] md:text-[36px] mt-2 md:mt-3 leading-[0.95]">
           МАСТЕРСТВО<br />НАЧИНАЕТСЯ ЗДЕСЬ.
         </div>
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:40px;padding:60px 0;">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-7 md:gap-10 py-7 md:py-[60px]">
       <div>
-        <div class="pr-num" style="margin-bottom:14px;">КОНТАКТЫ</div>
-        <div style="font-size:15px;line-height:1.7;">
+        <div class="pr-num mb-3.5">КОНТАКТЫ</div>
+        <div class="text-sm md:text-[15px] leading-[1.7]">
           ул. Ленина, 78<br />
           660049, Красноярск<br />
           <a href="tel:+73912345678">+7 (391) 234-56-78</a><br />
@@ -27,16 +27,16 @@ const socials = ['VK', 'TG', 'INST', 'YT'];
         </div>
       </div>
       <div>
-        <div class="pr-num" style="margin-bottom:14px;">РЕЖИМ РАБОТЫ</div>
-        <div style="font-size:15px;line-height:1.7;color:var(--pr-mute-2);">
+        <div class="pr-num mb-3.5">РЕЖИМ РАБОТЫ</div>
+        <div class="text-sm md:text-[15px] leading-[1.7] text-white/[0.65]">
           Пн–Пт · 09:00–21:00<br />
           Сб · 10:00–18:00<br />
           Вс · по записи
         </div>
       </div>
       <div>
-        <div class="pr-num" style="margin-bottom:14px;">ССЫЛКИ</div>
-        <div style="font-size:15px;line-height:1.9;">
+        <div class="pr-num mb-3.5">ССЫЛКИ</div>
+        <div class="text-sm md:text-[15px] leading-[1.9]">
           <a class="pr-link-u" href="#courses">Курсы и цены</a><br />
           <a class="pr-link-u" href="#instructors">Инструкторы</a><br />
           <a class="pr-link-u" href="#reviews">Отзывы</a><br />
@@ -44,16 +44,16 @@ const socials = ['VK', 'TG', 'INST', 'YT'];
         </div>
       </div>
       <div>
-        <div class="pr-num" style="margin-bottom:14px;">СОЦСЕТИ</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div class="pr-num mb-3.5">СОЦСЕТИ</div>
+        <div class="flex gap-2.5 flex-wrap">
           {socials.map((s) => (
-            <a href="#" style="width:48px;height:48px;border-radius:999px;border:1px solid var(--pr-line-strong);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">{s}</a>
+            <a href="#" class="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/[0.18] flex items-center justify-center font-extrabold text-xs">{s}</a>
           ))}
         </div>
       </div>
     </div>
 
-    <div style="padding-top:30px;border-top:1px solid var(--pr-line);display:flex;justify-content:space-between;font-size:12px;color:var(--pr-mute);font-family:var(--pr-mono);letter-spacing:0.06em;">
+    <div class="pt-5 md:pt-7 border-t border-white/[0.08] flex flex-col md:flex-row md:justify-between gap-1.5 md:gap-0 text-[10px] md:text-xs text-white/50 font-mono tracking-[0.06em]">
       <span>© 2026 ООО АВТОШКОЛА «ПРОФИ»</span>
       <span>ЛИЦЕНЗИЯ № 7167-Л</span>
       <span>ИНН 2466154321</span>
