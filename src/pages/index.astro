@@ -10,6 +10,7 @@ import Reviews from '../components/Reviews.astro';
 import Faq from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 import EnrollModal from '../islands/EnrollModal.tsx';
+import BurgerMenu from '../islands/BurgerMenu.tsx';
 ---
 
 <Base>
@@ -23,4 +24,5 @@ import EnrollModal from '../islands/EnrollModal.tsx';
   <Faq />
   <Footer />
   <EnrollModal client:idle />
+  <BurgerMenu client:idle />
 </Base>
