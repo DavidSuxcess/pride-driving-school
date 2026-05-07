@@ -3,12 +3,12 @@ const items = ['ЛИЦЕНЗИЯ № 7167-Л', 'РОСРЕЕСТР АВТОШК�
 const track = [...items, ...items, ...items];
 ---
 
-<div style="background:var(--pr-black);border-top:1px solid var(--pr-line-strong);border-bottom:1px solid var(--pr-line-strong);overflow:hidden;padding:24px 0;">
-  <div class="pr-marquee-track-rev" style="display:flex;gap:80px;white-space:nowrap;color:var(--pr-mute-2);width:max-content;">
+<div class="bg-pr-black border-y border-white/[0.18] overflow-hidden py-3.5 md:py-6">
+  <div class="pr-marquee-track-rev flex whitespace-nowrap w-max text-white/[0.65] gap-8 md:gap-20">
     {track.map((t) => (
-      <div style="display:flex;align-items:center;gap:80px;font-family:var(--pr-mono);font-size:14px;letter-spacing:0.12em;">
+      <div class="flex items-center gap-8 md:gap-20 font-mono text-[10px] md:text-sm tracking-[0.12em]">
         <span>{t}</span>
-        <span style="color:var(--pr-yellow);">✦</span>
+        <span class="text-pr-yellow">✦</span>
       </div>
     ))}
   </div>

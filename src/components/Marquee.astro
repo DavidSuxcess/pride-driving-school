@@ -7,12 +7,12 @@ const items = [
 const track = [...items, ...items, ...items];
 ---
 
-<div style="background:var(--pr-yellow);color:var(--pr-black);overflow:hidden;padding:18px 0;border-top:1px solid var(--pr-black);border-bottom:1px solid var(--pr-black);">
-  <div class="pr-marquee-track" style="display:flex;gap:48px;white-space:nowrap;width:max-content;">
+<div class="bg-pr-yellow text-pr-black overflow-hidden py-3 md:py-[18px] border-y border-pr-black">
+  <div class="pr-marquee-track flex whitespace-nowrap w-max gap-6 md:gap-12">
     {track.map((t) => (
-      <div style="display:flex;align-items:center;gap:48px;font-weight:800;font-size:22px;letter-spacing:0.04em;">
+      <div class="flex items-center gap-6 md:gap-12 font-extrabold text-[13px] md:text-[22px] tracking-[0.04em]">
         <span>{t}</span>
-        <span style="font-size:14px;">✦</span>
+        <span class="text-[11px] md:text-sm">✦</span>
       </div>
     ))}
   </div>
