@@ -1,0 +1,61 @@
+---
+import instructors from '../data/instructors.json';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<section id="instructors" style="padding:160px 80px;background:var(--pr-black);position:relative;">
+  <div class="pr-grid-bg" style="position:absolute;inset:0;opacity:0.4;"></div>
+  <div style="max-width:1760px;margin:0 auto;position:relative;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:80px;">
+      <div>
+        <div class="pr-section-tag">[03] КОМАНДА</div>
+        <h2 style="font-size:120px;margin-top:24px;">
+          ТРОЕ ЛЮДЕЙ,<br />
+          <span style="color:var(--pr-yellow);">КОТОРЫЕ НЕ КРИЧАТ.</span>
+        </h2>
+      </div>
+      <div style="max-width:360px;font-size:16px;line-height:1.5;color:var(--pr-mute-2);padding-bottom:12px;">
+        Каждый инструктор Pride — действующий водитель с 10+ лет стажа, не «сел за баранку только чтобы учить».
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:24px;">
+      {instructors.map((p, i) => (
+        <article
+          class="pr-lift"
+          data-pr-instructor-card
+          data-idx={i}
+          style="border-radius:var(--pr-r-xl);overflow:hidden;border:1px solid var(--pr-line);background:var(--pr-graphite);"
+        >
+          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;">
+            <img src={`${base}/assets/${p.img}`} alt={p.name} style="width:100%;height:100%;object-fit:cover;" />
+            <div style="position:absolute;top:16px;left:16px;background:var(--pr-yellow);color:#0A0A0A;padding:6px 12px;border-radius:999px;font-family:var(--pr-mono);font-size:10px;letter-spacing:0.12em;font-weight:700;z-index:2;">
+              {p.tag}
+            </div>
+            <div style="position:absolute;right:20px;top:12px;font-size:110px;font-family:var(--pr-display);color:#fff;line-height:0.9;letter-spacing:-0.04em;text-shadow:0 4px 20px rgba(0,0,0,0.6);opacity:0.95;">
+              0{i + 1}
+            </div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:20px 20px 18px;background:linear-gradient(transparent, rgba(0,0,0,0.85));">
+              <div style="font-family:var(--pr-display);font-size:40px;line-height:0.9;">{p.name}</div>
+              <div style="font-size:11px;color:var(--pr-yellow);letter-spacing:0.18em;font-family:var(--pr-mono);margin-top:6px;">
+                {p.surname}
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:24px 24px 28px;">
+            <div style="font-size:18px;line-height:1.4;margin-bottom:24px;border-left:2px solid var(--pr-yellow);padding-left:16px;font-style:italic;">
+              «{p.quote}»
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              {p.statsShort.map((s) => (
+                <span style="font-size:11px;color:var(--pr-mute-2);padding:5px 10px;border:1px solid var(--pr-line-strong);border-radius:999px;letter-spacing:0.04em;">{s}</span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
