@@ -2,52 +2,65 @@
 import courses from '../data/courses.json';
 ---
 
-<section id="courses" style="padding:160px 80px;background:var(--pr-paper);color:var(--pr-paper-ink);">
-  <div style="max-width:1760px;margin:0 auto;">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:80px;">
+<section id="courses" class="px-5 py-[50px] md:px-20 md:py-40 bg-pr-paper text-[var(--pr-paper-ink)]">
+  <div class="max-w-[1760px] mx-auto">
+    <div class="md:flex md:items-end md:justify-between md:mb-20">
       <div>
-        <div class="pr-section-tag" style="color:#3a3a3a;">[02] КУРСЫ</div>
-        <h2 style="font-size:120px;margin-top:24px;color:#0A0A0A;">
+        <div class="pr-section-tag text-[10px] md:text-[11px]" style="color:#3a3a3a;">[02] КУРСЫ</div>
+        <h2 class="font-display uppercase text-[56px] md:text-[120px] leading-[0.88] md:leading-[0.9] -tracking-[0.01em] mt-3.5 md:mt-6 text-pr-black">
           ВЫБЕРИ <br />СВОЙ ТЕМП.
         </h2>
       </div>
-      <div style="max-width:360px;font-size:16px;line-height:1.5;color:#3a3a3a;padding-bottom:12px;">
+      <p class="mt-3.5 md:mt-0 mb-7 md:mb-3 max-w-[360px] text-sm md:text-base leading-[1.5] text-[#3a3a3a]">
         Все три программы дают одно и то же удостоверение. Различаются только тем, сколько часов вы хотите за рулём — и сколько комфорта.
-      </div>
+      </p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:24px;">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
       {courses.map((c, i) => (
-        <article style={`background:${c.vip ? 'var(--pr-black)' : c.accent ? 'var(--pr-yellow)' : '#fff'};color:${c.vip ? '#fff' : '#0A0A0A'};border-radius:var(--pr-r-xl);padding:36px 32px 32px;border:${c.accent ? 'none' : '1px solid rgba(0,0,0,0.08)'};position:relative;display:flex;flex-direction:column;`}>
-          {c.accent && (
-            <div style="position:absolute;top:-16px;left:24px;background:#0A0A0A;color:var(--pr-yellow);padding:6px 14px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:0.1em;">
+        <article
+          class:list={[
+            'rounded-[22px] md:rounded-[var(--pr-r-xl)] p-6 md:p-8 md:pt-9 relative flex flex-col',
+            c.vip ? 'bg-pr-black text-white' : c.accent ? 'bg-pr-yellow text-pr-black' : 'bg-white text-pr-black border border-black/[0.08]',
+          ]}
+        >
+          {c.accent ? (
+            <div class="absolute -top-2.5 md:-top-4 left-5 md:left-6 bg-pr-black text-pr-yellow px-2.5 md:px-3.5 py-1 md:py-1.5 rounded-full text-[9px] md:text-[11px] font-extrabold tracking-[0.1em]">
               {c.tag}
             </div>
-          )}
-          {!c.accent && (
-            <div class="pr-num" style={`color:${c.vip ? 'var(--pr-yellow)' : '#7a7a7a'};`}>0{i + 1} · {c.tag}</div>
+          ) : (
+            <div class="pr-num text-[9px] md:text-[11px]" style={`color:${c.vip ? 'var(--pr-yellow)' : '#7a7a7a'};`}>0{i + 1} · {c.tag}</div>
           )}
 
-          <h3 style={`font-size:64px;margin-top:${c.accent ? 32 : 16}px;margin-bottom:20px;line-height:0.9;letter-spacing:-0.01em;`}>
+          <h3
+            class="font-display uppercase text-5xl md:text-[64px] leading-[0.9] -tracking-[0.01em] mb-4 md:mb-5"
+            class:list={[c.accent ? 'mt-3.5 md:mt-8' : 'mt-2 md:mt-4']}
+          >
             {c.title}
           </h3>
 
-          <p style={`font-size:16px;line-height:1.5;margin-bottom:32px;opacity:${c.vip ? 0.8 : 0.7};min-height:72px;`}>
+          <p class="text-[13px] md:text-base leading-[1.5] mb-4 md:mb-8" style={`opacity:${c.vip ? 0.8 : 0.7};min-height:0;`}>
             {c.pitch}
           </p>
 
-          <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:8px;">
-            <span style="font-family:var(--pr-display);font-size:56px;letter-spacing:-0.01em;">{c.price}</span>
-            <span style="font-size:22px;opacity:0.6;">₽</span>
+          <div class="flex items-baseline gap-1 md:gap-1.5 mb-1 md:mb-2">
+            <span class="font-display text-[38px] md:text-[56px] -tracking-[0.01em]">{c.price}</span>
+            <span class="text-base md:text-[22px] opacity-60">₽</span>
           </div>
-          <div style={`font-family:var(--pr-mono);font-size:11px;letter-spacing:0.12em;color:${c.vip ? 'var(--pr-yellow)' : c.accent ? '#3a1a00' : '#7a7a7a'};margin-bottom:28px;`}>
+          <div
+            class="font-mono text-[9px] md:text-[11px] tracking-[0.12em] mb-4 md:mb-7"
+            style={`color:${c.vip ? 'var(--pr-yellow)' : c.accent ? '#3a1a00' : '#7a7a7a'};`}
+          >
             {c.hours}
           </div>
 
-          <ul style="list-style:none;padding:0;margin:0 0 32px;display:grid;gap:12px;flex:1;">
+          <ul class="list-none p-0 m-0 mb-4 md:mb-8 grid gap-2 md:gap-3 flex-1">
             {c.features.map((f) => (
-              <li style="display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4;">
-                <span style={`flex-shrink:0;margin-top:7px;width:6px;height:6px;border-radius:2px;background:${c.vip ? 'var(--pr-yellow)' : c.accent ? '#0A0A0A' : 'var(--pr-yellow-deep)'};`}></span>
+              <li class="flex gap-3 items-start text-[13px] md:text-[15px] leading-[1.4]">
+                <span
+                  class="flex-shrink-0 mt-[7px] w-1.5 h-1.5 rounded-[2px]"
+                  style={`background:${c.vip ? 'var(--pr-yellow)' : c.accent ? '#0A0A0A' : 'var(--pr-yellow-deep)'};`}
+                ></span>
                 <span>{f}</span>
               </li>
             ))}
@@ -57,7 +70,10 @@ import courses from '../data/courses.json';
             type="button"
             data-pr-enroll-trigger
             data-course={c.title}
-            style={`background:${c.vip ? 'var(--pr-yellow)' : '#0A0A0A'};color:${c.vip ? '#0A0A0A' : c.accent ? 'var(--pr-yellow)' : '#fff'};border:0;border-radius:999px;padding:18px 24px;font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;display:flex;justify-content:space-between;align-items:center;`}
+            class:list={[
+              'w-full border-0 rounded-full py-3.5 md:py-[18px] px-5 md:px-6 font-extrabold text-[12px] md:text-[13px] tracking-[0.08em] uppercase cursor-pointer flex justify-between items-center',
+              c.vip ? 'bg-pr-yellow text-pr-black' : c.accent ? 'bg-pr-black text-pr-yellow' : 'bg-pr-black text-white',
+            ]}
           >
             <span>Выбрать</span>
             <span>→</span>
