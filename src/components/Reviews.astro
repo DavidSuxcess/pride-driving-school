@@ -1,0 +1,64 @@
+---
+import reviews from '../data/reviews.json';
+
+const base = import.meta.env.BASE_URL;
+const photoIndices = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3];
+const photos = photoIndices.map((n) => `${base}/assets/student_${((n - 1) % 5) + 1}.jpg`);
+const photoTrack = [...photos, ...photos];
+const reviewsTotal = reviews.length;
+---
+
+<section id="reviews" style="padding:160px 0 100px;background:var(--pr-black);">
+  <div style="max-width:1760px;margin:0 auto 80px;padding:0 80px;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+      <div>
+        <div class="pr-section-tag">[04] КУРСАНТЫ И ОТЗЫВЫ</div>
+        <h2 style="font-size:120px;margin-top:24px;">
+          <span style="color:var(--pr-yellow);">5.0</span> НА АВИТО.<br />
+          ПОЧИТАЙ ЛЮБОЙ.
+        </h2>
+      </div>
+      <a
+        href="https://www.avito.ru/brands/2445e40064cd9cc62a80139e1a006b77/all"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="pr-btn-ghost"
+        style="align-self:flex-end;"
+      >
+        Все {reviewsTotal} отзывов на Авито →
+      </a>
+    </div>
+  </div>
+
+  <div style="overflow:hidden;padding:0 0 40px;">
+    <div class="pr-marquee-track-fast" style="display:flex;gap:16px;white-space:nowrap;width:max-content;">
+      {photoTrack.map((src) => (
+        <div style="width:220px;height:290px;border-radius:var(--pr-r-md);overflow:hidden;flex-shrink:0;border:1px solid var(--pr-line);position:relative;">
+          <img src={src} alt="" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div style="max-width:1760px;margin:40px auto 0;padding:0 80px;">
+    <div style="column-count:4;column-gap:16px;">
+      {reviews.map((r) => (
+        <article class="pr-card" style="padding:20px 22px;break-inside:avoid;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--pr-yellow);color:#0A0A0A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">
+              {r.name[0]}
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;font-size:14px;">{r.name}</div>
+              <div class="pr-num" style="margin-top:2px;">{r.date}</div>
+            </div>
+            <span style="color:var(--pr-yellow);font-size:12px;letter-spacing:1px;">★★★★★</span>
+          </div>
+          <p style="font-size:14px;line-height:1.5;color:var(--pr-mute-2);white-space:normal;">
+            {r.text}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
