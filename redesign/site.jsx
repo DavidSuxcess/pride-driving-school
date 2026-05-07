@@ -159,7 +159,7 @@ const PrHero = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
               <span style={{ color: 'var(--pr-yellow)', fontSize: 18, letterSpacing: 2 }}>★★★★★</span>
               <span style={{ fontSize: 22, fontWeight: 800 }}>5.0</span>
-              <span style={{ color: 'var(--pr-mute)', fontSize: 13 }}>· 54+ оценки</span>
+              <span style={{ color: 'var(--pr-mute)', fontSize: 13 }}>· {(typeof window !== 'undefined' && window.PRIDE_REVIEWS) ? window.PRIDE_REVIEWS.length : 55}+ отзывов</span>
             </div>
           </div>
         </div>
@@ -519,16 +519,8 @@ const PrTrust = () => {
 
 // ── Reviews ──────────────────────────────────────────────────
 const PrReviews = () => {
-  const reviews = [
-    { name: 'Даша Киреева', date: '5 декабря 2024', text: 'Очень коммуникабельный и пунктуальный Лев Александрович! Открывает мир вождения по-новому. Научил всему: ездить по навигатору, заправляться, зеркала правильно настроить, парковаться!' },
-    { name: 'Влада', date: '3 декабря 2024', text: 'Самый лучший и любимый инструктор! Нашла через Авито. Научат здесь всему: от правильной езды до реакции в экстренных ситуациях.' },
-    { name: 'Александра', date: '30 ноября 2024', text: 'Профессионал своего дела! Инструктор всё понятно объясняет, с его помощью смогла понять и исправить свои ошибки в вождении.' },
-    { name: 'Екатерина', date: '7 ноября 2024', text: 'Жаль, что Вы мне не попались раньше, молодой, знающий своё дело инструктор.' },
-    { name: 'Вера', date: '5 ноября 2024', text: 'Отличный инструктор! Пришла из другой автошколы. Увидел мои ошибки, всё рассказал, показал и нарисовал!' },
-    { name: 'Елизавета', date: '3 ноября 2024', text: 'После двух провальных попыток сдачи экзамена в ГИБДД позанималась со Львом. И сдала экзамен! Занятия проходят в комфортной, дружелюбной атмосфере.' },
-    { name: 'Анна Титова', date: '16 июня 2025', text: 'Инструктор супер, очень грамотный, спокойный, очень комфортно с таким человеком.' },
-    { name: 'Maxim', date: '23 февраля 2024', text: 'Все доступно и понятно, Лев отличный инструктор, подскажет где ошибки и как их исправить, всем рекомендую.' },
-  ];
+  const reviews = (typeof window !== 'undefined' && window.PRIDE_REVIEWS) || [];
+  const reviewsTotal = reviews.length;
   const photos = [1,2,3,4,5,1,2,3,4,5,1,2,3].map(n => `assets/student_${((n-1)%5)+1}.jpg`);
   return (
     <section id="reviews" style={{ padding: '160px 0 100px', background: 'var(--pr-black)' }}>
@@ -541,8 +533,8 @@ const PrReviews = () => {
               ПОЧИТАЙ ЛЮБОЙ.
             </h2>
           </div>
-          <a href="#" className="pr-btn-ghost" style={{ alignSelf: 'flex-end' }}>
-            Все 54 отзыва на Авито →
+          <a href="https://www.avito.ru/brands/2445e40064cd9cc62a80139e1a006b77/all" target="_blank" rel="noopener noreferrer" className="pr-btn-ghost" style={{ alignSelf: 'flex-end' }}>
+            Все {reviewsTotal} отзывов на Авито →
           </a>
         </div>
       </div>

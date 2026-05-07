@@ -84,7 +84,7 @@ const PrMSHero = () => (
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <span style={{ color: 'var(--pr-yellow)', fontSize: 13, letterSpacing: 1 }}>★★★★★</span>
           <span style={{ fontSize: 16, fontWeight: 800 }}>5.0</span>
-          <span style={{ color: 'var(--pr-mute)', fontSize: 11 }}>· 54+</span>
+          <span style={{ color: 'var(--pr-mute)', fontSize: 11 }}>· {(typeof window !== 'undefined' && window.PRIDE_REVIEWS) ? window.PRIDE_REVIEWS.length : 55}+</span>
         </div>
       </div>
     </div>
@@ -424,13 +424,11 @@ const PrMSTrust = () => {
 
 // ── Reviews ──────────────────────────────────────────────────
 const PrMSReviews = () => {
-  const reviews = [
-    { name: 'Даша Киреева', date: '5 декабря 2024', text: 'Очень коммуникабельный и пунктуальный Лев Александрович! Открывает мир вождения по-новому. Научил всему: ездить по навигатору, заправляться, парковаться!' },
-    { name: 'Влада', date: '3 декабря 2024', text: 'Самый лучший и любимый инструктор! Нашла через Авито. Научат здесь всему: от правильной езды до реакции в экстренных ситуациях.' },
-    { name: 'Александра', date: '30 ноября 2024', text: 'Профессионал своего дела! Инструктор всё понятно объясняет, с его помощью смогла понять и исправить свои ошибки в вождении.' },
-    { name: 'Елизавета', date: '3 ноября 2024', text: 'После двух провальных попыток сдачи экзамена в ГИБДД позанималась со Львом. И сдала экзамен!' },
-  ];
+  const allReviews = (typeof window !== 'undefined' && window.PRIDE_REVIEWS) || [];
+  const reviewsTotal = allReviews.length;
+  const reviews = allReviews.slice(0, 10);
   const photos = [1,2,3,4,5,1,2].map(n => `assets/student_${((n-1)%5)+1}.jpg`);
+  const truncate = (s, n) => (s.length > n ? s.slice(0, n).trimEnd() + '…' : s);
   return (
     <section id="ms-reviews" style={{ padding: '50px 0 50px', background: 'var(--pr-black)' }}>
       <div style={{ padding: '0 20px' }}>
@@ -442,7 +440,7 @@ const PrMSReviews = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 14, marginBottom: 24 }}>
           <span style={{ color: 'var(--pr-yellow)', fontSize: 14, letterSpacing: 1 }}>★★★★★</span>
           <span style={{ fontSize: 16, fontWeight: 800, color: '#fff' }}>5.0</span>
-          <span style={{ fontSize: 12, color: 'var(--pr-mute)' }}>· 54+ оценок</span>
+          <span style={{ fontSize: 12, color: 'var(--pr-mute)' }}>· {reviewsTotal} отзывов</span>
         </div>
       </div>
 
@@ -475,12 +473,12 @@ const PrMSReviews = () => {
               </div>
               <span style={{ color: 'var(--pr-yellow)', fontSize: 11, letterSpacing: 1 }}>★★★★★</span>
             </div>
-            <p style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--pr-mute-2)', margin: 0 }}>{r.text}</p>
+            <p style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--pr-mute-2)', margin: 0, whiteSpace: 'pre-line' }}>{truncate(r.text, 220)}</p>
           </article>
         ))}
-        <button className="pr-btn-ghost" style={{ width: '100%', marginTop: 8, justifyContent: 'center', padding: '14px 0', fontSize: 12 }}>
-          Все 54 отзыва на Авито →
-        </button>
+        <a href="https://www.avito.ru/brands/2445e40064cd9cc62a80139e1a006b77/all" target="_blank" rel="noopener noreferrer" className="pr-btn-ghost" style={{ width: '100%', marginTop: 8, justifyContent: 'center', padding: '14px 0', fontSize: 12, textAlign: 'center' }}>
+          Все {reviewsTotal} отзывов на Авито →
+        </a>
       </div>
     </section>
   );

@@ -7,7 +7,7 @@ const PrMobileMenu = ({ onClose } = {}) => {
     { n: '01', t: 'Главная', sub: 'старт', href: '#top' },
     { n: '02', t: 'Курсы', sub: '3 тарифа · от 50 000 ₽', href: '#ms-courses' },
     { n: '03', t: 'Инструкторы', sub: 'команда из 3 человек', href: '#ms-instructors' },
-    { n: '04', t: 'Отзывы', sub: '5.0 · 54+ на Авито', href: '#ms-reviews' },
+    { n: '04', t: 'Отзывы', sub: `5.0 · ${(typeof window !== 'undefined' && window.PRIDE_REVIEWS) ? window.PRIDE_REVIEWS.length : 55} на Авито`, href: '#ms-reviews' },
     { n: '05', t: 'Вопросы', sub: 'FAQ · рассрочка · возврат', href: '#ms-faq' },
     { n: '06', t: 'Запись', sub: 'оставить заявку', href: '#ms-enroll' },
   ];
