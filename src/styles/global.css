@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --pr-yellow: #E45400;
   --pr-yellow-deep: #A33C00;

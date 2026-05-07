@@ -7,7 +7,7 @@ import courses from '../data/courses.json';
     <div class="md:flex md:items-end md:justify-between md:mb-20">
       <div>
         <div class="pr-section-tag text-[10px] md:text-[11px]" style="color:#3a3a3a;">[02] КУРСЫ</div>
-        <h2 class="font-display uppercase text-[56px] md:text-[120px] leading-[0.88] md:leading-[0.9] -tracking-[0.01em] mt-3.5 md:mt-6 text-pr-black">
+        <h2 class="font-display uppercase text-[clamp(40px,12vw,56px)] md:text-[120px] leading-[0.9] -tracking-[0.01em] mt-3.5 md:mt-6 text-pr-black">
           ВЫБЕРИ <br />СВОЙ ТЕМП.
         </h2>
       </div>
@@ -33,7 +33,7 @@ import courses from '../data/courses.json';
           )}
 
           <h3
-            class="font-display uppercase text-5xl md:text-[64px] leading-[0.9] -tracking-[0.01em] mb-4 md:mb-5"
+            class="font-display uppercase text-[40px] md:text-[64px] leading-[0.9] -tracking-[0.01em] mb-4 md:mb-5"
             class:list={[c.accent ? 'mt-3.5 md:mt-8' : 'mt-2 md:mt-4']}
           >
             {c.title}
@@ -43,7 +43,7 @@ import courses from '../data/courses.json';
             {c.pitch}
           </p>
 
-          <div class="flex items-baseline gap-1 md:gap-1.5 mb-1 md:mb-2">
+          <div class="flex items-baseline gap-1 md:gap-1.5 mb-1 md:mb-2 whitespace-nowrap">
             <span class="font-display text-[38px] md:text-[56px] -tracking-[0.01em]">{c.price}</span>
             <span class="text-base md:text-[22px] opacity-60">₽</span>
           </div>

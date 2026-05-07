@@ -5,7 +5,7 @@ import reviews from '../data/reviews.json';
 const reviewsCount = reviews.length;
 ---
 
-<section class="relative overflow-hidden bg-pr-black">
+<section class="relative overflow-hidden bg-pr-black max-w-full">
   <div class="pr-grid-bg absolute inset-0 opacity-50 md:opacity-60"></div>
 
   <div class="pr-tape absolute -right-[60px] top-[30px] w-[220px] h-9 -rotate-[8deg] md:right-[-100px] md:top-20 md:w-[380px] md:h-[60px]"></div>
@@ -22,7 +22,7 @@ const reviewsCount = reviews.length;
     </div>
 
     <h1
-      class="font-display uppercase text-white text-[76px] md:text-[220px] leading-[0.85] md:leading-[0.82] -tracking-[0.02em] mb-6 md:mb-10 font-normal whitespace-nowrap md:whitespace-normal"
+      class="font-display uppercase text-white text-[clamp(44px,15vw,72px)] md:text-[220px] leading-[0.88] md:leading-[0.82] -tracking-[0.02em] mb-6 md:mb-10 font-normal break-words"
     >
       ВОДИ<br />
       <span class="text-pr-yellow">УВЕРЕННО.</span>
@@ -41,14 +41,15 @@ const reviewsCount = reviews.length;
       <button
         type="button"
         data-pr-enroll-trigger
-        class="pr-btn-yellow w-full md:w-auto justify-between md:justify-start"
-        style="padding:18px 22px;font-size:14px;"
+        class="pr-btn-yellow w-full md:w-auto justify-between md:justify-start whitespace-nowrap"
+        style="padding:16px 20px;font-size:13px;"
       >
-        Записаться на курс <span class="text-lg md:text-xl">→</span>
+        <span>Записаться на курс</span>
+        <span class="text-lg md:text-xl">→</span>
       </button>
       <button
         type="button"
-        class="pr-btn-ghost w-full md:w-auto"
+        class="pr-btn-ghost hidden md:inline-flex"
         style="padding:14px 22px;font-size:13px;"
       >
         ▶ Как проходит занятие · 1 мин
