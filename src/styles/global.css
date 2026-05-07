@@ -35,7 +35,6 @@ body {
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   max-width: 100vw;
-  zoom: var(--pr-mobile-zoom, 1);
 }
 * { box-sizing: border-box; }
 a { color: inherit; text-decoration: none; }
@@ -236,10 +235,4 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.04em; text-transform: uppercase;
 }
 
-#root .pr-site { width: 100%; }
-
-.pr-mobile-stack {
-  width: 390px; margin: 0 auto; background: #0A0A0A;
-  zoom: var(--pr-mobile-zoom, 1);
-}
-.pr-mobile-stack > * { display: block; }
+.pr-site { width: 100%; }

@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import ResponsiveZoom from '../islands/ResponsiveZoom.tsx';
 
 interface Props {
   title?: string;
@@ -40,7 +39,6 @@ const {
     <div class="pr-loader" id="pr-loader">
       <div class="pr-loader-text">ПРАЙД</div>
     </div>
-    <ResponsiveZoom client:load />
     <div class="pr-site">
       <slot />
     </div>
