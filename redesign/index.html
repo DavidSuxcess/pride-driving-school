@@ -9,7 +9,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --pr-yellow: #E45400;
@@ -20,6 +20,12 @@
     --pr-paper-ink: #1A1A1A;
 
     --pr-display: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif;
+  }
+  /* Desktop: вернуть Bebas Neue (кириллица падает на Arial Black — жирный) */
+  @media (min-width: 768px) {
+    :root {
+      --pr-display: 'Bebas Neue', 'Arial Black', 'Oswald', sans-serif;
+    }
     --pr-text: 'Manrope', system-ui, sans-serif;
     --pr-mono: 'JetBrains Mono', ui-monospace, monospace;
 
