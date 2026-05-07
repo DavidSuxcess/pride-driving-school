@@ -8,8 +8,8 @@
 const MS_W = 390;
 
 // ── Header ────────────────────────────────────────────────────
-const PrMSHeader = () => (
-  <header style={{
+const PrMSHeader = ({ onMenuOpen }) => (
+  <header id="top" style={{
     position: 'sticky', top: 0, zIndex: 50,
     background: 'rgba(10,10,10,0.92)',
     backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
@@ -28,9 +28,10 @@ const PrMSHeader = () => (
           </span>
         </div>
       </div>
-      <button style={{
+      <button onClick={onMenuOpen} aria-label="Открыть меню" style={{
         width: 38, height: 38, borderRadius: 999, background: 'var(--pr-yellow)',
         color: '#0A0A0A', border: 0, fontSize: 18, fontWeight: 800,
+        cursor: 'pointer',
       }}>≡</button>
     </div>
   </header>
@@ -135,7 +136,7 @@ const PrMSCourses = () => {
       accent: false, vip: true },
   ];
   return (
-    <section style={{ padding: '50px 20px 56px', background: 'var(--pr-paper)', color: '#0A0A0A' }}>
+    <section id="ms-courses" style={{ padding: '50px 20px 56px', background: 'var(--pr-paper)', color: '#0A0A0A' }}>
       <div className="pr-section-tag" style={{ fontSize: 10, color: '#3a3a3a' }}>[02] КУРСЫ</div>
       <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 56, lineHeight: 0.88, marginTop: 14, color: '#0A0A0A' }}>
         ВЫБЕРИ <br />СВОЙ ТЕМП.
@@ -316,7 +317,7 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
 );
 
 const PrMSInstructors = ({ onSelect }) => (
-  <section style={{ padding: '50px 20px 56px', background: 'var(--pr-black)', position: 'relative' }}>
+  <section id="ms-instructors" style={{ padding: '50px 20px 56px', background: 'var(--pr-black)', position: 'relative' }}>
     <div className="pr-grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.4 }} />
     <div style={{ position: 'relative' }}>
       <div className="pr-section-tag" style={{ fontSize: 10 }}>[03] КОМАНДА</div>
@@ -416,7 +417,7 @@ const PrMSReviews = () => {
   ];
   const photos = [1,2,3,4,5,1,2].map(n => `assets/student_${((n-1)%5)+1}.jpg`);
   return (
-    <section style={{ padding: '50px 0 50px', background: 'var(--pr-black)' }}>
+    <section id="ms-reviews" style={{ padding: '50px 0 50px', background: 'var(--pr-black)' }}>
       <div style={{ padding: '0 20px' }}>
         <div className="pr-section-tag" style={{ fontSize: 10 }}>[04] КУРСАНТЫ И ОТЗЫВЫ</div>
         <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 56, lineHeight: 0.88, marginTop: 14, color: '#fff' }}>
@@ -481,7 +482,7 @@ const PrMSFaq = () => {
     { q: 'ЕСЛИ НЕ СДАМ С ПЕРВОГО РАЗА?', a: 'На «Премиум» — все попытки бесплатны, мы сопровождаем. На «Базовом» — повторные сборы 350 ₽.' },
   ];
   return (
-    <section style={{ padding: '50px 20px 56px', background: 'var(--pr-paper)', color: '#0A0A0A' }}>
+    <section id="ms-faq" style={{ padding: '50px 20px 56px', background: 'var(--pr-paper)', color: '#0A0A0A' }}>
       <div className="pr-section-tag" style={{ fontSize: 10, color: '#3a3a3a' }}>[05] ВОПРОСЫ</div>
       <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 52, lineHeight: 0.9, marginTop: 14 }}>
         ЧАСТО<br />СПРАШИВАЮТ.
@@ -532,7 +533,7 @@ const PrMSEnroll = () => {
   const [data, setData] = React.useState({ category: 'B', transmission: 'AT', course: 'Премиум' });
   const update = (k, v) => setData(d => ({ ...d, [k]: v }));
   return (
-    <section style={{ background: 'var(--pr-yellow)', color: '#0A0A0A' }}>
+    <section id="ms-enroll" style={{ background: 'var(--pr-yellow)', color: '#0A0A0A' }}>
       <div style={{ padding: '50px 20px 32px' }}>
         <div className="pr-section-tag" style={{ fontSize: 10, color: '#0A0A0A' }}>[06] ЗАПИСЬ</div>
         <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 56, lineHeight: 0.92, marginTop: 14 }}>
@@ -703,11 +704,24 @@ const PrMSFooter = () => (
 // ── Compose ──────────────────────────────────────────────────
 const PrideMobileSite = () => {
   const [selectedInstructor, setSelectedInstructor] = React.useState(null);
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
-  // Reset scroll when switching between detail and home views.
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [selectedInstructor]);
+
+  // Lock body scroll while menu is open
+  React.useEffect(() => {
+    if (menuOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [menuOpen]);
+
+  if (menuOpen && window.PrMobileMenu) {
+    return <window.PrMobileMenu onClose={() => setMenuOpen(false)} />;
+  }
 
   if (selectedInstructor !== null) {
     return (
@@ -721,7 +735,7 @@ const PrideMobileSite = () => {
 
   return (
     <div className="pr-site" style={{ width: MS_W, position: 'relative' }}>
-      <PrMSHeader />
+      <PrMSHeader onMenuOpen={() => setMenuOpen(true)} />
       <PrMSHero />
       <PrMSMarquee />
       <PrMSCourses />
