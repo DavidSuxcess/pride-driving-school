@@ -1,0 +1,63 @@
+---
+import faq from '../data/faq.json';
+---
+
+<section id="faq" style="padding:160px 80px;background:var(--pr-paper);color:var(--pr-paper-ink);">
+  <div style="max-width:1760px;margin:0 auto;display:grid;grid-template-columns:420px 1fr;gap:160px;">
+    <div>
+      <div class="pr-section-tag" style="color:#3a3a3a;">[05] ВОПРОСЫ</div>
+      <h2 style="font-size:60px;margin-top:24px;color:#0A0A0A;line-height:0.95;">
+        ЧАСТО<br />СПРАШИВАЮТ.
+      </h2>
+      <p style="margin-top:32px;font-size:16px;line-height:1.5;color:#3a3a3a;">
+        Если вашего вопроса нет — напишите в Telegram, отвечаем в течение 15 минут в рабочее время.
+      </p>
+      <button type="button" class="pr-btn-black" style="margin-top:32px;">Написать в Telegram</button>
+    </div>
+
+    <div>
+      {faq.map((it, i) => (
+        <details
+          class="pr-faq-item"
+          open={i === 0 ? true : undefined}
+          style={`border-top:1px solid rgba(0,0,0,0.12);${i === faq.length - 1 ? 'border-bottom:1px solid rgba(0,0,0,0.12);' : ''}padding:28px 0;`}
+        >
+          <summary>
+            <span style="display:flex;gap:24px;align-items:baseline;">
+              <span class="pr-num" style="color:#7a7a7a;">0{i + 1}</span>
+              <span style="font-family:var(--pr-display);font-size:22px;color:#0A0A0A;line-height:1.1;">{it.q}</span>
+            </span>
+            <span class="pr-faq-toggle"></span>
+          </summary>
+          <p style="margin-top:20px;margin-left:56px;font-size:17px;line-height:1.55;color:#3a3a3a;max-width:640px;">
+            {it.a}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pr-faq-item > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pr-faq-item > summary::-webkit-details-marker { display: none; }
+  .pr-faq-toggle {
+    width: 42px; height: 42px; border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 22px; font-weight: 300;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .pr-faq-toggle::before { content: '+'; line-height: 1; }
+  .pr-faq-item[open] .pr-faq-toggle {
+    background: var(--pr-yellow);
+    border-color: var(--pr-yellow);
+  }
+  .pr-faq-item[open] .pr-faq-toggle::before { content: '–'; }
+</style>
