@@ -195,84 +195,194 @@ const PrMSCourses = () => {
 };
 
 // ── Instructors ──────────────────────────────────────────────
-const PrMSInstructors = () => {
-  const inst = [
-    { name: 'ЛЕВ', surname: 'СТАРШИЙ ИНСТРУКТОР', img: 'assets/instructor_lev.jpg',
-      tag: 'ПСИХОЛОГИЯ ВОЖДЕНИЯ',
-      quote: 'Чтобы научиться водить, надо научиться расслабляться. Дальше — техника.',
-      stats: ['17 лет за рулём', '7 лет преподавания'] },
-    { name: 'ДМИТРИЙ', surname: 'БЕЛОНОГОВ', img: 'assets/instructor_dmitry_b.jpg',
-      tag: 'ГОРОДСКОЙ ПОТОК',
-      quote: 'В пробке надо не нервничать, а думать на два хода вперёд.',
-      stats: ['10 лет за рулём', 'АКПП / МКПП'] },
-    { name: 'ДМИТРИЙ', surname: 'ИНСТРУКТОР МКПП / АКПП', img: 'assets/instructor_dmitry.jpg',
-      tag: 'БЕЗ КРИКОВ',
-      quote: 'Объясняю чётко, без стресса. Учу для жизни, не для галочки.',
-      stats: ['12 лет за рулём', 'Маршруты ГИБДД'] },
-  ];
-  return (
-    <section style={{ padding: '50px 20px 56px', background: 'var(--pr-black)', position: 'relative' }}>
-      <div className="pr-grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.4 }} />
-      <div style={{ position: 'relative' }}>
-        <div className="pr-section-tag" style={{ fontSize: 10 }}>[03] КОМАНДА</div>
-        <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 56, lineHeight: 0.88, marginTop: 14, color: '#fff' }}>
-          ТРОЕ ЛЮДЕЙ,<br />
-          <span style={{ color: 'var(--pr-yellow)' }}>КОТОРЫЕ НЕ КРИЧАТ.</span>
-        </h2>
-        <p style={{ marginTop: 14, fontSize: 14, lineHeight: 1.5, color: 'var(--pr-mute-2)', marginBottom: 28 }}>
-          Каждый — действующий водитель с 10+ лет стажа.
-        </p>
+const MS_INSTRUCTORS = [
+  { name: 'ЛЕВ', surname: 'СТАРШИЙ ИНСТРУКТОР', img: 'assets/instructor_lev.jpg',
+    tag: 'ПСИХОЛОГИЯ ВОЖДЕНИЯ',
+    quote: 'Чтобы научиться водить, надо научиться расслабляться. Дальше — техника.',
+    statsShort: ['17 лет за рулём', '7 лет преподавания'],
+    statsBig: [{ n: '17', l: 'ЛЕТ ЗА РУЛЁМ' }, { n: '7', l: 'ЛЕТ ПРЕПОДАЁТ' }],
+    approach: [
+      'Использует знания психологии — индивидуальный подход к каждому ученику.',
+      'Помогает преодолеть страхи, выявить слабые стороны и превратить их в преимущества.',
+      'Обучает не только правилам, но и свободному, уверенному вождению.',
+    ] },
+  { name: 'ДМИТРИЙ', surname: 'БЕЛОНОГОВ', img: 'assets/instructor_dmitry_b.jpg',
+    tag: 'ГОРОДСКОЙ ПОТОК',
+    quote: 'В пробке надо не нервничать, а думать на два хода вперёд.',
+    statsShort: ['10 лет за рулём', 'АКПП / МКПП'],
+    statsBig: [{ n: '10', l: 'ЛЕТ ЗА РУЛЁМ' }, { n: 'AT/MT', l: 'ОБЕ КОРОБКИ' }],
+    approach: [
+      'Главные принципы: терпение, ответственность и стрессоустойчивость.',
+      'Учу сохранять спокойствие при сложных манёврах и в плотном городском потоке.',
+      'Внимательный и обстоятельный подход к каждому занятию.',
+    ] },
+  { name: 'ДМИТРИЙ', surname: 'ИНСТРУКТОР МКПП / АКПП', img: 'assets/instructor_dmitry.jpg',
+    tag: 'БЕЗ КРИКОВ',
+    quote: 'Объясняю чётко, без стресса. Учу для жизни, не для галочки.',
+    statsShort: ['12 лет за рулём', 'Маршруты ГИБДД'],
+    statsBig: [{ n: '12', l: 'ЛЕТ ЗА РУЛЁМ' }, { n: 'AT/MT', l: 'ОБЕ КОРОБКИ' }],
+    approach: [
+      'Обучаю на МКПП («механика») и АКПП («автомат») — выбор за вами.',
+      'Объясняю чётко, без стресса и криков — создаю безопасную атмосферу.',
+      'Учу не для галочки в ГАИ, а для уверенной езды в жизни.',
+    ] },
+];
 
-        <div style={{ display: 'grid', gap: 16 }}>
-          {inst.map((p, i) => (
-            <article key={i} style={{
-              borderRadius: 18, overflow: 'hidden',
-              border: '1px solid var(--pr-line)', background: 'var(--pr-graphite)',
-            }}>
-              <div style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden' }}>
-                <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{
-                  position: 'absolute', top: 12, left: 12, background: 'var(--pr-yellow)',
-                  color: '#0A0A0A', padding: '5px 10px', borderRadius: 999,
-                  fontFamily: 'var(--pr-mono)', fontSize: 9, letterSpacing: '0.12em', fontWeight: 700,
-                }}>{p.tag}</div>
-                <div style={{
-                  position: 'absolute', right: 14, top: 8, fontSize: 84,
-                  fontFamily: 'var(--pr-display)', color: '#fff',
-                  lineHeight: 0.9, letterSpacing: '-0.04em',
-                  textShadow: '0 4px 20px rgba(0,0,0,0.6)',
-                }}>0{i + 1}</div>
-                <div style={{
-                  position: 'absolute', left: 0, right: 0, bottom: 0,
-                  padding: '40px 16px 14px', background: 'linear-gradient(transparent, rgba(0,0,0,0.92))',
-                }}>
-                  <div style={{ fontFamily: 'var(--pr-display)', fontSize: 32, lineHeight: 0.9, color: '#fff' }}>{p.name}</div>
-                  <div style={{ fontSize: 9, color: 'var(--pr-yellow)', letterSpacing: '0.18em', fontFamily: 'var(--pr-mono)', marginTop: 4 }}>
-                    {p.surname}
-                  </div>
+const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
+  <div className="pr-site" style={{ width: MS_W, background: 'var(--pr-black)', minHeight: '100vh' }}>
+    {/* Hero photo */}
+    <div style={{ position: 'relative', height: 480, overflow: 'hidden' }}>
+      <img src={inst.img} alt={inst.name}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <div style={{
+        position: 'absolute', top: 14, left: 14, right: 14,
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      }}>
+        <button onClick={onClose} style={{
+          width: 38, height: 38, borderRadius: 999, background: 'rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255,255,255,0.2)', color: '#fff', fontSize: 18,
+          cursor: 'pointer',
+        }}>←</button>
+        <span className="pr-stamp" style={{
+          color: '#fff', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255,255,255,0.2)', fontSize: 9, padding: '4px 10px',
+        }}>{inst.tag}</span>
+      </div>
+      <div style={{
+        position: 'absolute', right: 16, top: 70, fontSize: 100,
+        fontFamily: 'var(--pr-display)', color: '#fff',
+        lineHeight: 0.9, letterSpacing: '-0.04em',
+        textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+      }}>0{idx + 1}</div>
+      <div style={{
+        position: 'absolute', left: 0, right: 0, bottom: 0,
+        padding: '60px 20px 22px', background: 'linear-gradient(transparent, rgba(0,0,0,0.92))',
+      }}>
+        <div style={{ fontFamily: 'var(--pr-mono)', fontSize: 10, color: 'var(--pr-yellow)', letterSpacing: '0.18em' }}>
+          {inst.surname}
+        </div>
+        <div style={{ fontFamily: 'var(--pr-display)', fontSize: 64, lineHeight: 0.9, color: '#fff', marginTop: 4 }}>
+          {inst.name}
+        </div>
+      </div>
+    </div>
+
+    {/* Stats row */}
+    <div style={{ display: 'flex', borderBottom: '1px solid var(--pr-line)' }}>
+      {inst.statsBig.map((s, i) => (
+        <div key={i} style={{
+          flex: 1, padding: '20px 12px', textAlign: 'center',
+          borderRight: i < inst.statsBig.length - 1 ? '1px solid var(--pr-line)' : 'none',
+        }}>
+          <div style={{ fontFamily: 'var(--pr-display)', fontSize: 28, color: 'var(--pr-yellow)', lineHeight: 1 }}>{s.n}</div>
+          <div style={{ fontFamily: 'var(--pr-mono)', fontSize: 9, color: 'var(--pr-mute-2)', letterSpacing: '0.1em', marginTop: 6 }}>{s.l}</div>
+        </div>
+      ))}
+    </div>
+
+    {/* Quote */}
+    <div style={{ padding: '28px 20px 8px' }}>
+      <div style={{
+        fontSize: 18, lineHeight: 1.4, color: '#fff',
+        borderLeft: '2px solid var(--pr-yellow)', paddingLeft: 16, fontStyle: 'italic',
+      }}>«{inst.quote}»</div>
+    </div>
+
+    {/* Approach */}
+    <div style={{ padding: '24px 20px 0' }}>
+      <div className="pr-num" style={{ marginBottom: 14 }}>ПОДХОД</div>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 14 }}>
+        {inst.approach.map((s, i) => (
+          <li key={i} style={{ display: 'flex', gap: 12, fontSize: 14, lineHeight: 1.5, color: 'var(--pr-mute-2)' }}>
+            <span style={{ flexShrink: 0, marginTop: 7, width: 6, height: 6, borderRadius: 2, background: 'var(--pr-yellow)' }} />
+            {s}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* CTAs */}
+    <div style={{ padding: '32px 20px 40px' }}>
+      <button className="pr-btn-yellow" style={{ width: '100%', justifyContent: 'center', padding: '18px 0', cursor: 'pointer' }}>
+        Записаться к {inst.name === 'ЛЕВ' ? 'Льву' : 'Дмитрию'} <span style={{ fontSize: 18 }}>→</span>
+      </button>
+      <button className="pr-btn-ghost" style={{ width: '100%', marginTop: 10, padding: '14px 0', fontSize: 13, cursor: 'pointer' }}>
+        ☎ Позвонить · +7 (391) 234-56-78
+      </button>
+    </div>
+  </div>
+);
+
+const PrMSInstructors = ({ onSelect }) => (
+  <section style={{ padding: '50px 20px 56px', background: 'var(--pr-black)', position: 'relative' }}>
+    <div className="pr-grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.4 }} />
+    <div style={{ position: 'relative' }}>
+      <div className="pr-section-tag" style={{ fontSize: 10 }}>[03] КОМАНДА</div>
+      <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 56, lineHeight: 0.88, marginTop: 14, color: '#fff' }}>
+        ТРОЕ ЛЮДЕЙ,<br />
+        <span style={{ color: 'var(--pr-yellow)' }}>КОТОРЫЕ НЕ КРИЧАТ.</span>
+      </h2>
+      <p style={{ marginTop: 14, fontSize: 14, lineHeight: 1.5, color: 'var(--pr-mute-2)', marginBottom: 28 }}>
+        Каждый — действующий водитель с 10+ лет стажа. Нажмите карточку, чтобы открыть профиль.
+      </p>
+
+      <div style={{ display: 'grid', gap: 16 }}>
+        {MS_INSTRUCTORS.map((p, i) => (
+          <article key={i} onClick={() => onSelect(i)} style={{
+            borderRadius: 18, overflow: 'hidden',
+            border: '1px solid var(--pr-line)', background: 'var(--pr-graphite)',
+            cursor: 'pointer',
+          }}>
+            <div style={{ position: 'relative', aspectRatio: '4/5', overflow: 'hidden' }}>
+              <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{
+                position: 'absolute', top: 12, left: 12, background: 'var(--pr-yellow)',
+                color: '#0A0A0A', padding: '5px 10px', borderRadius: 999,
+                fontFamily: 'var(--pr-mono)', fontSize: 9, letterSpacing: '0.12em', fontWeight: 700,
+              }}>{p.tag}</div>
+              <div style={{
+                position: 'absolute', right: 14, top: 8, fontSize: 84,
+                fontFamily: 'var(--pr-display)', color: '#fff',
+                lineHeight: 0.9, letterSpacing: '-0.04em',
+                textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+              }}>0{i + 1}</div>
+              <div style={{
+                position: 'absolute', left: 0, right: 0, bottom: 0,
+                padding: '40px 16px 14px', background: 'linear-gradient(transparent, rgba(0,0,0,0.92))',
+              }}>
+                <div style={{ fontFamily: 'var(--pr-display)', fontSize: 32, lineHeight: 0.9, color: '#fff' }}>{p.name}</div>
+                <div style={{ fontSize: 9, color: 'var(--pr-yellow)', letterSpacing: '0.18em', fontFamily: 'var(--pr-mono)', marginTop: 4 }}>
+                  {p.surname}
                 </div>
               </div>
-              <div style={{ padding: '18px 18px 20px' }}>
-                <div style={{
-                  fontSize: 14, lineHeight: 1.4, color: '#fff', marginBottom: 14,
-                  borderLeft: '2px solid var(--pr-yellow)', paddingLeft: 12, fontStyle: 'italic',
-                }}>«{p.quote}»</div>
+            </div>
+            <div style={{ padding: '18px 18px 20px' }}>
+              <div style={{
+                fontSize: 14, lineHeight: 1.4, color: '#fff', marginBottom: 14,
+                borderLeft: '2px solid var(--pr-yellow)', paddingLeft: 12, fontStyle: 'italic',
+              }}>«{p.quote}»</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                  {p.stats.map((s, k) => (
+                  {p.statsShort.map((s, k) => (
                     <span key={k} style={{
                       fontSize: 10, color: 'var(--pr-mute-2)', padding: '4px 9px',
                       border: '1px solid var(--pr-line-strong)', borderRadius: 999,
                     }}>{s}</span>
                   ))}
                 </div>
+                <span style={{ fontSize: 11, color: 'var(--pr-yellow)', fontWeight: 700, letterSpacing: '0.04em' }}>
+                  ПРОФИЛЬ →
+                </span>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </article>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // ── Trust ────────────────────────────────────────────────────
 const PrMSTrust = () => {
@@ -591,19 +701,38 @@ const PrMSFooter = () => (
 );
 
 // ── Compose ──────────────────────────────────────────────────
-const PrideMobileSite = () => (
-  <div className="pr-site" style={{ width: MS_W, position: 'relative' }}>
-    <PrMSHeader />
-    <PrMSHero />
-    <PrMSMarquee />
-    <PrMSCourses />
-    <PrMSInstructors />
-    <PrMSTrust />
-    <PrMSReviews />
-    <PrMSFaq />
-    <PrMSEnroll />
-    <PrMSFooter />
-  </div>
-);
+const PrideMobileSite = () => {
+  const [selectedInstructor, setSelectedInstructor] = React.useState(null);
+
+  // Reset scroll when switching between detail and home views.
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [selectedInstructor]);
+
+  if (selectedInstructor !== null) {
+    return (
+      <PrMSInstructorDetail
+        inst={MS_INSTRUCTORS[selectedInstructor]}
+        idx={selectedInstructor}
+        onClose={() => setSelectedInstructor(null)}
+      />
+    );
+  }
+
+  return (
+    <div className="pr-site" style={{ width: MS_W, position: 'relative' }}>
+      <PrMSHeader />
+      <PrMSHero />
+      <PrMSMarquee />
+      <PrMSCourses />
+      <PrMSInstructors onSelect={setSelectedInstructor} />
+      <PrMSTrust />
+      <PrMSReviews />
+      <PrMSFaq />
+      <PrMSEnroll />
+      <PrMSFooter />
+    </div>
+  );
+};
 
 window.PrideMobileSite = PrideMobileSite;
