@@ -6,57 +6,86 @@ const photoIndices = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3];
 const photos = photoIndices.map((n) => `${base}/assets/student_${((n - 1) % 5) + 1}.jpg`);
 const photoTrack = [...photos, ...photos];
 const reviewsTotal = reviews.length;
+
+function truncate(s: string, n: number): string {
+  return s.length > n ? s.slice(0, n).trimEnd() + '…' : s;
+}
 ---
 
-<section id="reviews" style="padding:160px 0 100px;background:var(--pr-black);">
-  <div style="max-width:1760px;margin:0 auto 80px;padding:0 80px;">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+<section id="reviews" class="bg-pr-black py-[50px] md:py-40 md:pb-[100px]">
+  <div class="px-5 md:px-20 max-w-[1760px] mx-auto md:mb-20">
+    <div class="md:flex md:items-end md:justify-between">
       <div>
-        <div class="pr-section-tag">[04] КУРСАНТЫ И ОТЗЫВЫ</div>
-        <h2 style="font-size:120px;margin-top:24px;">
-          <span style="color:var(--pr-yellow);">5.0</span> НА АВИТО.<br />
+        <div class="pr-section-tag text-[10px] md:text-[11px]">[04] КУРСАНТЫ И ОТЗЫВЫ</div>
+        <h2 class="font-display uppercase text-[56px] md:text-[120px] leading-[0.88] md:leading-[0.9] -tracking-[0.01em] mt-3.5 md:mt-6">
+          <span class="text-pr-yellow">5.0</span> НА АВИТО.<br />
           ПОЧИТАЙ ЛЮБОЙ.
         </h2>
+        <div class="md:hidden flex items-center gap-2.5 mt-3.5">
+          <span class="text-pr-yellow text-sm tracking-[1px]">★★★★★</span>
+          <span class="text-base font-extrabold">5.0</span>
+          <span class="text-xs text-white/50">· {reviewsTotal} отзывов</span>
+        </div>
       </div>
       <a
         href="https://www.avito.ru/brands/2445e40064cd9cc62a80139e1a006b77/all"
         target="_blank"
         rel="noopener noreferrer"
-        class="pr-btn-ghost"
-        style="align-self:flex-end;"
+        class="hidden md:inline-flex pr-btn-ghost self-end"
       >
         Все {reviewsTotal} отзывов на Авито →
       </a>
     </div>
   </div>
 
-  <div style="overflow:hidden;padding:0 0 40px;">
-    <div class="pr-marquee-track-fast" style="display:flex;gap:16px;white-space:nowrap;width:max-content;">
+  <div class="overflow-hidden pt-1 pb-5 md:pt-0 md:pb-10 md:pl-0 md:pr-0">
+    <div class="pr-marquee-track-fast flex whitespace-nowrap w-max gap-2 md:gap-4">
       {photoTrack.map((src) => (
-        <div style="width:220px;height:290px;border-radius:var(--pr-r-md);overflow:hidden;flex-shrink:0;border:1px solid var(--pr-line);position:relative;">
-          <img src={src} alt="" style="width:100%;height:100%;object-fit:cover;" />
+        <div class="w-[130px] h-[170px] md:w-[220px] md:h-[290px] rounded-xl md:rounded-[var(--pr-r-md)] overflow-hidden flex-shrink-0 border border-white/[0.08] relative">
+          <img src={src} alt="" class="w-full h-full object-cover" />
         </div>
       ))}
     </div>
   </div>
 
-  <div style="max-width:1760px;margin:40px auto 0;padding:0 80px;">
-    <div style="column-count:4;column-gap:16px;">
-      {reviews.map((r) => (
-        <article class="pr-card" style="padding:20px 22px;break-inside:avoid;margin-bottom:16px;">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-            <div style="width:36px;height:36px;border-radius:50%;background:var(--pr-yellow);color:#0A0A0A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;">
-              {r.name[0]}
+  <div class="px-5 md:px-20 max-w-[1760px] mx-auto mt-2 md:mt-10">
+    <div class="grid grid-cols-1 gap-3 md:hidden">
+      {reviews.slice(0, 10).map((r) => (
+        <article class="pr-card p-[18px] pb-4">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-8 h-8 rounded-full bg-pr-yellow text-pr-black flex items-center justify-center font-extrabold text-[13px]">{r.name[0]}</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-bold text-[13px] truncate">{r.name}</div>
+              <div class="pr-num mt-0.5 text-[9px]">{r.date}</div>
             </div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-weight:700;font-size:14px;">{r.name}</div>
-              <div class="pr-num" style="margin-top:2px;">{r.date}</div>
-            </div>
-            <span style="color:var(--pr-yellow);font-size:12px;letter-spacing:1px;">★★★★★</span>
+            <span class="text-pr-yellow text-[11px] tracking-[1px]">★★★★★</span>
           </div>
-          <p style="font-size:14px;line-height:1.5;color:var(--pr-mute-2);white-space:normal;">
-            {r.text}
-          </p>
+          <p class="text-[13px] leading-[1.5] text-white/[0.65] m-0 whitespace-pre-line">{truncate(r.text, 220)}</p>
+        </article>
+      ))}
+      <a
+        href="https://www.avito.ru/brands/2445e40064cd9cc62a80139e1a006b77/all"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="pr-btn-ghost w-full justify-center text-center text-xs mt-2"
+        style="padding:14px 0;"
+      >
+        Все {reviewsTotal} отзывов на Авито →
+      </a>
+    </div>
+
+    <div class="hidden md:block columns-4 gap-4">
+      {reviews.map((r) => (
+        <article class="pr-card p-[20px_22px] mb-4 break-inside-avoid">
+          <div class="flex items-center gap-3 mb-3.5">
+            <div class="w-9 h-9 rounded-full bg-pr-yellow text-pr-black flex items-center justify-center font-extrabold text-sm">{r.name[0]}</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-bold text-sm">{r.name}</div>
+              <div class="pr-num mt-0.5">{r.date}</div>
+            </div>
+            <span class="text-pr-yellow text-xs tracking-[1px]">★★★★★</span>
+          </div>
+          <p class="text-sm leading-[1.5] text-white/[0.65] whitespace-normal m-0">{r.text}</p>
         </article>
       ))}
     </div>
