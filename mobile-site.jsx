@@ -723,37 +723,38 @@ const PrMSEnrollCard = () => {
   );
 };
 
-const PrMSEnrollModal = ({ onClose }) => (
-  <div style={{
-    position: 'fixed', inset: 0, zIndex: 9000,
-    background: 'var(--pr-yellow)', color: '#0A0A0A',
-    overflowY: 'auto', WebkitOverflowScrolling: 'touch',
-  }}>
-    <div style={{
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: '14px 20px', borderBottom: '1px solid rgba(0,0,0,0.1)',
-      position: 'sticky', top: 0, background: 'var(--pr-yellow)', zIndex: 1,
+const PrMSEnrollModal = ({ onClose }) => {
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  return (
+    <div onClick={onClose} className="pr-modal-backdrop" style={{
+      position: 'fixed', inset: 0, zIndex: 9000,
+      background: 'rgba(0,0,0,0.55)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: 16, overflowY: 'auto',
     }}>
-      <div className="pr-section-tag" style={{ fontSize: 10, color: '#0A0A0A' }}>ЗАПИСЬ НА КУРС</div>
-      <button onClick={onClose} aria-label="Закрыть" style={{
-        width: 38, height: 38, borderRadius: 999, background: '#0A0A0A', color: 'var(--pr-yellow)',
-        border: 0, fontSize: 20, fontWeight: 800, cursor: 'pointer',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-      }}>×</button>
+      <div onClick={(e) => e.stopPropagation()} className="pr-modal-card" style={{
+        position: 'relative', width: '100%', maxWidth: 420,
+      }}>
+        <button onClick={onClose} aria-label="Закрыть" style={{
+          position: 'absolute', top: 12, right: 12, zIndex: 2,
+          width: 36, height: 36, borderRadius: 999,
+          background: 'var(--pr-yellow)', color: '#0A0A0A',
+          border: 0, fontSize: 20, fontWeight: 800, cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        }}>×</button>
+        <PrMSEnrollCard />
+      </div>
     </div>
-    <div style={{ padding: '24px 20px 12px' }}>
-      <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 48, lineHeight: 0.92, marginBottom: 12 }}>
-        ТРИ<br />ПРОСТЫХ<br />ШАГА.
-      </h2>
-      <p style={{ fontSize: 13, lineHeight: 1.5, maxWidth: 320, marginBottom: 20 }}>
-        Без длинных анкет. Куратор перезванивает за 15 минут.
-      </p>
-    </div>
-    <div style={{ padding: '0 20px 40px' }}>
-      <PrMSEnrollCard />
-    </div>
-  </div>
-);
+  );
+};
 window.PrMSEnrollModal = PrMSEnrollModal;
 
 const PrMSEnroll = () => {

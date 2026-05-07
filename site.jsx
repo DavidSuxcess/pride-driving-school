@@ -826,53 +826,38 @@ const PrEnrollCard = () => {
   );
 };
 
-const PrEnrollModal = ({ onClose }) => (
-  <div style={{
-    position: 'fixed', inset: 0, zIndex: 9000,
-    background: 'var(--pr-yellow)', color: '#0A0A0A',
-    overflowY: 'auto',
-  }}>
-    <div style={{
-      maxWidth: 1760, margin: '0 auto', padding: '60px 80px',
-      display: 'grid', gridTemplateColumns: '1fr 620px', gap: 80, alignItems: 'start',
-    }}>
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
-          <div className="pr-section-tag" style={{ color: '#0A0A0A' }}>[06] ЗАПИСЬ</div>
-          <button onClick={onClose} aria-label="Закрыть" style={{
-            width: 48, height: 48, borderRadius: 999, background: '#0A0A0A', color: 'var(--pr-yellow)',
-            border: 0, fontSize: 24, fontWeight: 800, cursor: 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>×</button>
-        </div>
-        <h2 style={{ fontSize: 96, color: '#0A0A0A', lineHeight: 0.95 }}>
-          ТРИ<br />ПРОСТЫХ<br />ШАГА.
-        </h2>
-        <p style={{ marginTop: 32, fontSize: 18, lineHeight: 1.5, maxWidth: 440 }}>
-          Без длинных анкет. Выбираете курс, оставляете телефон — куратор перезванивает в течение 15 минут.
-        </p>
+const PrEnrollModal = ({ onClose }) => {
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
-        <div style={{ marginTop: 48, display: 'grid', gap: 16 }}>
-          {[
-            { n: '01', t: 'Звонок куратора · 15 мин' },
-            { n: '02', t: 'Знакомство со школой и инструктором · 30 мин' },
-            { n: '03', t: 'Первое занятие — бесплатно' },
-          ].map((s, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 20, fontSize: 18 }}>
-              <span style={{
-                width: 48, height: 48, borderRadius: 999, background: '#0A0A0A', color: 'var(--pr-yellow)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: 'var(--pr-display)', fontSize: 16,
-              }}>{s.n}</span>
-              <span style={{ fontWeight: 600 }}>{s.t}</span>
-            </div>
-          ))}
-        </div>
+  return (
+    <div onClick={onClose} className="pr-modal-backdrop" style={{
+      position: 'fixed', inset: 0, zIndex: 9000,
+      background: 'rgba(0,0,0,0.55)',
+      backdropFilter: 'blur(14px)',
+      WebkitBackdropFilter: 'blur(14px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: 24, overflowY: 'auto',
+    }}>
+      <div onClick={(e) => e.stopPropagation()} className="pr-modal-card" style={{
+        position: 'relative', width: '100%', maxWidth: 560,
+      }}>
+        <button onClick={onClose} aria-label="Закрыть" style={{
+          position: 'absolute', top: 16, right: 16, zIndex: 2,
+          width: 40, height: 40, borderRadius: 999,
+          background: 'var(--pr-yellow)', color: '#0A0A0A',
+          border: 0, fontSize: 22, fontWeight: 800, cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+        }}>×</button>
+        <PrEnrollCard />
       </div>
-      <PrEnrollCard />
     </div>
-  </div>
-);
+  );
+};
 window.PrEnrollModal = PrEnrollModal;
 
 const PrEnroll = () => {
