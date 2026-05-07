@@ -184,8 +184,13 @@
      maxWidth:1760 + padding so they extend full viewport — no empty side gutters. */
   #root .pr-site { width: 100%; }
 
-  /* Mobile stack — design is at 390px width, JS auto-scales via html zoom */
-  .pr-mobile-stack { width: 390px; margin: 0 auto; background: #0A0A0A; }
+  /* Mobile stack — design is at 390px width.
+     CSS `zoom` on the stack itself scales it to fit each phone exactly:
+     visual width = 390 * --pr-mobile-zoom. JS sets the variable from viewport. */
+  .pr-mobile-stack {
+    width: 390px; margin: 0 auto; background: #0A0A0A;
+    zoom: var(--pr-mobile-zoom, 1);
+  }
   .pr-mobile-stack > * { display: block; }
 </style>
 </head>
@@ -219,13 +224,15 @@
         const w = window.innerWidth;
         const mobile = w < MOBILE_BREAKPOINT;
         setIsMobile(mobile);
+        // html zoom not used anymore — clear in case it was set previously.
+        html.style.zoom = '';
         if (mobile) {
-          // Scale 390-design DOWN to fit narrow phones; never up (so layout
-          // never exceeds viewport and there's no horizontal scroll).
-          const scale = Math.min(1, w / MOBILE_DESIGN_W);
-          html.style.zoom = scale.toFixed(4);
+          // Scale .pr-mobile-stack so its visual width = viewport width.
+          // Cap at 1.10 (≈430/390) to avoid blow-up on tablets.
+          const scale = Math.min(1.10, w / MOBILE_DESIGN_W);
+          html.style.setProperty('--pr-mobile-zoom', scale.toFixed(4));
         } else {
-          html.style.zoom = '';
+          html.style.removeProperty('--pr-mobile-zoom');
         }
       };
       update();
