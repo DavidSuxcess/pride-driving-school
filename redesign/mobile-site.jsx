@@ -233,7 +233,7 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
   <div className="pr-site" style={{ width: MS_W, background: 'var(--pr-black)', minHeight: '100vh' }}>
     {/* Hero photo */}
     <div style={{ position: 'relative', height: 480, overflow: 'hidden' }}>
-      <img src={inst.img} alt={inst.name}
+      <img className="pr-prof-photo" src={inst.img} alt={inst.name}
         style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       <div style={{
         position: 'absolute', top: 14, left: 14, right: 14,
@@ -251,15 +251,17 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
           border: '1px solid rgba(255,255,255,0.2)', fontSize: 9, padding: '4px 10px',
         }}>{inst.tag}</span>
       </div>
-      <div style={{
+      <div className="pr-prof-num" style={{
         position: 'absolute', right: 16, top: 70, fontSize: 100,
         fontFamily: 'var(--pr-display)', color: '#fff',
         lineHeight: 0.9, letterSpacing: '-0.04em',
         textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+        animationDelay: '0.25s',
       }}>0{idx + 1}</div>
-      <div style={{
+      <div className="pr-prof-rise" style={{
         position: 'absolute', left: 0, right: 0, bottom: 0,
         padding: '60px 20px 22px', background: 'linear-gradient(transparent, rgba(0,0,0,0.92))',
+        animationDelay: '0.35s',
       }}>
         <div style={{ fontFamily: 'var(--pr-mono)', fontSize: 10, color: 'var(--pr-yellow)', letterSpacing: '0.18em' }}>
           {inst.surname}
@@ -271,7 +273,7 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
     </div>
 
     {/* Stats row */}
-    <div style={{ display: 'flex', borderBottom: '1px solid var(--pr-line)' }}>
+    <div className="pr-prof-rise" style={{ display: 'flex', borderBottom: '1px solid var(--pr-line)', animationDelay: '0.5s' }}>
       {inst.statsBig.map((s, i) => (
         <div key={i} style={{
           flex: 1, padding: '20px 12px', textAlign: 'center',
@@ -284,7 +286,7 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
     </div>
 
     {/* Quote */}
-    <div style={{ padding: '28px 20px 8px' }}>
+    <div className="pr-prof-rise" style={{ padding: '28px 20px 8px', animationDelay: '0.6s' }}>
       <div style={{
         fontSize: 18, lineHeight: 1.4, color: '#fff',
         borderLeft: '2px solid var(--pr-yellow)', paddingLeft: 16, fontStyle: 'italic',
@@ -292,7 +294,7 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
     </div>
 
     {/* Approach */}
-    <div style={{ padding: '24px 20px 0' }}>
+    <div className="pr-prof-rise" style={{ padding: '24px 20px 0', animationDelay: '0.7s' }}>
       <div className="pr-num" style={{ marginBottom: 14 }}>ПОДХОД</div>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 14 }}>
         {inst.approach.map((s, i) => (
@@ -305,7 +307,7 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
     </div>
 
     {/* CTAs */}
-    <div style={{ padding: '32px 20px 40px' }}>
+    <div className="pr-prof-rise" style={{ padding: '32px 20px 40px', animationDelay: '0.8s' }}>
       <button className="pr-btn-yellow" style={{ width: '100%', justifyContent: 'center', padding: '18px 0', cursor: 'pointer' }}>
         Записаться к {inst.name === 'ЛЕВ' ? 'Льву' : 'Дмитрию'} <span style={{ fontSize: 18 }}>→</span>
       </button>

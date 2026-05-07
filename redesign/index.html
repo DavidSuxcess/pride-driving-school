@@ -54,6 +54,57 @@
   /* Any element with inline fontFamily: var(--pr-display) renders bold (Oswald 700) */
   [style*="--pr-display"] { font-weight: 700; }
   .pr-ticker { font-weight: 700; }
+
+  /* ── Mobile menu open animation ─────────────────────── */
+  @keyframes pr-menu-bg {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pr-menu-item {
+    from { opacity: 0; transform: translateX(-22px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pr-menu-fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pr-menu-tape {
+    from { opacity: 0; transform: translateX(-60px) rotate(-8deg); }
+    to   { opacity: 0.9; transform: translateX(0) rotate(-8deg); }
+  }
+  .pr-menu-root { animation: pr-menu-bg 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-menu-item { animation: pr-menu-item 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-menu-fade { animation: pr-menu-fade 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-menu-tape { animation: pr-menu-tape 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+  /* ── Instructor profile open animation ───────────────── */
+  @keyframes pr-prof-photo {
+    from { opacity: 0; transform: scale(1.08); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pr-prof-rise {
+    from { opacity: 0; transform: translateY(20px); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  @keyframes pr-prof-num {
+    from { opacity: 0; transform: translateY(-14px) scale(0.9); }
+    to   { opacity: 0.95; transform: translateY(0) scale(1); }
+  }
+  @keyframes pr-prof-line {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+  .pr-prof-photo { animation: pr-prof-photo 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-prof-rise  { animation: pr-prof-rise  0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-prof-num   { animation: pr-prof-num   0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .pr-prof-line  { animation: pr-prof-line  0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; transform-origin: top; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pr-menu-root, .pr-menu-item, .pr-menu-fade, .pr-menu-tape,
+    .pr-prof-photo, .pr-prof-rise, .pr-prof-num, .pr-prof-line {
+      animation: none !important;
+    }
+  }
   .pr-site p { margin: 0; }
 
   .pr-btn-yellow {

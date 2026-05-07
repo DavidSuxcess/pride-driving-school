@@ -1,5 +1,5 @@
 /* global React, PrLion */
-// Pride · Mobile · открытое бургер-меню (overlay)
+// Pride · Mobile · открытое бургер-меню (overlay) с анимациями входа
 
 const PrMobileMenu = ({ onClose } = {}) => {
   const close = onClose || (() => {});
@@ -12,27 +12,28 @@ const PrMobileMenu = ({ onClose } = {}) => {
     { n: '06', t: 'Запись', sub: 'оставить заявку', href: '#ms-enroll' },
   ];
   return (
-    <div className="pr-site" style={{
+    <div className="pr-site pr-menu-root" style={{
       width: 390, minHeight: 844, background: 'var(--pr-black)',
       color: '#fff', position: 'relative', overflow: 'hidden',
     }}>
-      {/* Grid bg */}
       <div className="pr-grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.5 }} />
-      {/* Lion ghost */}
-      <div style={{ position: 'absolute', right: -120, bottom: -80, opacity: 0.06, pointerEvents: 'none' }}>
+      <div className="pr-menu-fade" style={{
+        position: 'absolute', right: -120, bottom: -80, opacity: 0.06, pointerEvents: 'none',
+        animationDelay: '0.15s',
+      }}>
         <PrLion size={460} color="#E45400" />
       </div>
-      {/* Diagonal tape */}
-      <div className="pr-tape" style={{
+      <div className="pr-tape pr-menu-tape" style={{
         position: 'absolute', left: -40, top: 380, width: 240, height: 28,
-        transform: 'rotate(-8deg)', opacity: 0.9,
+        animationDelay: '0.2s',
       }} />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         {/* Top bar */}
-        <div style={{
+        <div className="pr-menu-fade" style={{
           padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           borderBottom: '1px solid var(--pr-line)',
+          animationDelay: '0.05s',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <PrLion size={30} color="#E45400" />
@@ -43,7 +44,6 @@ const PrMobileMenu = ({ onClose } = {}) => {
               </span>
             </div>
           </div>
-          {/* Close */}
           <button onClick={close} aria-label="Закрыть меню" style={{
             width: 38, height: 38, borderRadius: 999, background: 'var(--pr-yellow)',
             color: '#0A0A0A', border: 0, fontSize: 20, fontWeight: 800,
@@ -53,19 +53,20 @@ const PrMobileMenu = ({ onClose } = {}) => {
         </div>
 
         {/* Section tag */}
-        <div style={{ padding: '24px 20px 10px' }}>
+        <div className="pr-menu-fade" style={{ padding: '24px 20px 10px', animationDelay: '0.12s' }}>
           <div className="pr-section-tag" style={{ fontSize: 10 }}>МЕНЮ · НАВИГАЦИЯ</div>
         </div>
 
         {/* Big nav links */}
         <nav style={{ padding: '0 20px' }}>
           {links.map((l, i) => (
-            <a key={i} href={l.href} onClick={close} style={{
+            <a key={i} href={l.href} onClick={close} className="pr-menu-item" style={{
               display: 'flex', alignItems: 'center', gap: 16,
               padding: '18px 0',
               borderTop: '1px solid var(--pr-line)',
               borderBottom: i === links.length - 1 ? '1px solid var(--pr-line)' : 'none',
               color: l.active ? 'var(--pr-yellow)' : '#fff',
+              animationDelay: `${0.18 + i * 0.06}s`,
               cursor: 'pointer',
             }}>
               <span className="pr-num" style={{ fontSize: 10, color: l.active ? 'var(--pr-yellow)' : 'var(--pr-mute)', minWidth: 20 }}>
@@ -91,7 +92,7 @@ const PrMobileMenu = ({ onClose } = {}) => {
         </nav>
 
         {/* Contact block */}
-        <div style={{ padding: '28px 20px 20px' }}>
+        <div className="pr-menu-fade" style={{ padding: '28px 20px 20px', animationDelay: '0.6s' }}>
           <div className="pr-num" style={{ fontSize: 9, marginBottom: 12 }}>СВЯЗАТЬСЯ</div>
           <a style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -122,7 +123,9 @@ const PrMobileMenu = ({ onClose } = {}) => {
         </div>
 
         {/* Address */}
-        <div style={{ padding: '18px 20px', borderTop: '1px solid var(--pr-line)' }}>
+        <div className="pr-menu-fade" style={{
+          padding: '18px 20px', borderTop: '1px solid var(--pr-line)', animationDelay: '0.7s',
+        }}>
           <div className="pr-num" style={{ fontSize: 9, marginBottom: 8 }}>АДРЕС · КРАСНОЯРСК</div>
           <div style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--pr-mute-2)' }}>
             ул. Ленина, 78 · 660049
@@ -130,9 +133,9 @@ const PrMobileMenu = ({ onClose } = {}) => {
         </div>
 
         {/* Footer mark */}
-        <div style={{
+        <div className="pr-menu-fade" style={{
           padding: '20px 20px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          borderTop: '1px solid var(--pr-line)',
+          borderTop: '1px solid var(--pr-line)', animationDelay: '0.78s',
         }}>
           <div className="pr-num" style={{ fontSize: 9 }}>ЛИЦЕНЗИЯ № 7167-Л</div>
           <div className="pr-num" style={{ fontSize: 9 }}>© 2026</div>
