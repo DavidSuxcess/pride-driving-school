@@ -33,7 +33,7 @@
     --pr-r-lg: 20px;
     --pr-r-xl: 28px;
   }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; overflow-x: hidden; }
   body {
     font-family: var(--pr-text);
     background: #0A0A0A;
@@ -41,6 +41,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    max-width: 100vw;
   }
   * { box-sizing: border-box; }
   a { color: inherit; text-decoration: none; }
@@ -175,8 +176,8 @@
   }
   .pr-loader.hidden { opacity: 0; pointer-events: none; }
   .pr-loader-text {
-    font-family: var(--pr-display); font-size: 56px; color: var(--pr-yellow);
-    letter-spacing: 0.04em;
+    font-family: var(--pr-display); font-weight: 700; font-size: 56px; color: var(--pr-yellow);
+    letter-spacing: 0.04em; text-transform: uppercase;
   }
 
   /* Desktop site is designed at 1920px. Sections inside use
@@ -219,9 +220,9 @@
         const mobile = w < MOBILE_BREAKPOINT;
         setIsMobile(mobile);
         if (mobile) {
-          // Scale 390-design to fit phone viewport (320-767px).
-          // Cap upscale at 1.15 so design doesn't blow up on tablets.
-          const scale = Math.min(1.15, w / MOBILE_DESIGN_W);
+          // Scale 390-design DOWN to fit narrow phones; never up (so layout
+          // never exceeds viewport and there's no horizontal scroll).
+          const scale = Math.min(1, w / MOBILE_DESIGN_W);
           html.style.zoom = scale.toFixed(4);
         } else {
           html.style.zoom = '';

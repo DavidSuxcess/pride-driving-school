@@ -52,8 +52,9 @@ const PrMSHero = () => (
 
     <div style={{ position: 'relative', padding: '40px 20px 36px' }}>
       <h1 style={{
-        fontSize: 92, lineHeight: 0.85, letterSpacing: '-0.01em',
+        fontSize: 76, lineHeight: 0.85, letterSpacing: '-0.02em',
         color: '#fff', textTransform: 'uppercase', marginBottom: 24,
+        whiteSpace: 'nowrap',
       }}>
         ВОДИ<br />
         <span style={{ color: 'var(--pr-yellow)' }}>УВЕРЕННО.</span>
