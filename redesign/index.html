@@ -183,10 +183,9 @@
      maxWidth:1760 + padding so they extend full viewport — no empty side gutters. */
   #root .pr-site { width: 100%; }
 
-  /* Mobile stack */
-  .pr-mobile-stack { width: 100%; max-width: 430px; margin: 0 auto; background: #0A0A0A; }
-  .pr-mobile-stack > * { display: block; margin: 0 auto; }
-  .pr-mobile-stack .pr-site { width: 100% !important; max-width: 430px; }
+  /* Mobile stack — design is at 390px width, JS auto-scales via html zoom */
+  .pr-mobile-stack { width: 390px; margin: 0 auto; background: #0A0A0A; }
+  .pr-mobile-stack > * { display: block; }
 </style>
 </head>
 <body>
@@ -206,6 +205,7 @@
 
 <script type="text/babel" data-presets="react">
   const MOBILE_BREAKPOINT = 768;
+  const MOBILE_DESIGN_W = 390;
 
   function App() {
     const [isMobile, setIsMobile] = React.useState(
@@ -213,7 +213,21 @@
     );
 
     React.useEffect(() => {
-      const update = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+      const html = document.documentElement;
+      const update = () => {
+        const w = window.innerWidth;
+        const mobile = w < MOBILE_BREAKPOINT;
+        setIsMobile(mobile);
+        if (mobile) {
+          // Scale 390-design to fit phone viewport (320-767px).
+          // Cap upscale at 1.15 so design doesn't blow up on tablets.
+          const scale = Math.min(1.15, w / MOBILE_DESIGN_W);
+          html.style.zoom = scale.toFixed(4);
+        } else {
+          html.style.zoom = '';
+        }
+      };
+      update();
       window.addEventListener('resize', update);
       return () => window.removeEventListener('resize', update);
     }, []);
