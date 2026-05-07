@@ -1,0 +1,19 @@
+---
+const items = [
+  'КАТ. B · АВТОМАТ', 'КАТ. B · МЕХАНИКА', 'ИНДИВИДУАЛЬНЫЙ ГРАФИК',
+  'СОПРОВОЖДЕНИЕ В ГИБДД', 'ЗАБИРАЕМ ИЗ ДОМА', 'ПЛАТЁЖ В РАССРОЧКУ',
+  'ЛИЦЕНЗИЯ № 7167-Л', 'СВОЙ АВТОПАРК',
+];
+const track = [...items, ...items, ...items];
+---
+
+<div style="background:var(--pr-yellow);color:var(--pr-black);overflow:hidden;padding:18px 0;border-top:1px solid var(--pr-black);border-bottom:1px solid var(--pr-black);">
+  <div class="pr-marquee-track" style="display:flex;gap:48px;white-space:nowrap;width:max-content;">
+    {track.map((t) => (
+      <div style="display:flex;align-items:center;gap:48px;font-weight:800;font-size:22px;letter-spacing:0.04em;">
+        <span>{t}</span>
+        <span style="font-size:14px;">✦</span>
+      </div>
+    ))}
+  </div>
+</div>
