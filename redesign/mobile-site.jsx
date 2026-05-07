@@ -311,9 +311,22 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
       <button className="pr-btn-yellow" style={{ width: '100%', justifyContent: 'center', padding: '18px 0', cursor: 'pointer' }}>
         Записаться к {inst.name === 'ЛЕВ' ? 'Льву' : 'Дмитрию'} <span style={{ fontSize: 18 }}>→</span>
       </button>
-      <button className="pr-btn-ghost" style={{ width: '100%', marginTop: 10, padding: '14px 0', fontSize: 13, cursor: 'pointer' }}>
-        ☎ Позвонить · +7 (391) 234-56-78
-      </button>
+      <a href="tel:+73912345678" style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '16px 18px', background: 'var(--pr-yellow)', color: '#0A0A0A',
+        borderRadius: 14, marginTop: 10, textDecoration: 'none',
+      }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 18 }}>☎</span>
+          <span style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontWeight: 800, fontSize: 15 }}>+7 (391) 234-56-78</span>
+            <span style={{ fontFamily: 'var(--pr-mono)', fontSize: 9, letterSpacing: '0.1em', opacity: 0.7 }}>
+              ОТКРЫТО · ДО 21:00
+            </span>
+          </span>
+        </span>
+        <span style={{ fontSize: 18 }}>→</span>
+      </a>
     </div>
   </div>
 );
@@ -707,9 +720,25 @@ const PrMSFooter = () => (
 const PrideMobileSite = () => {
   const [selectedInstructor, setSelectedInstructor] = React.useState(null);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const savedScrollRef = React.useRef(0);
 
+  const openInstructor = React.useCallback((idx) => {
+    savedScrollRef.current = window.scrollY;
+    setSelectedInstructor(idx);
+  }, []);
+
+  const closeInstructor = React.useCallback(() => {
+    setSelectedInstructor(null);
+  }, []);
+
+  // When opening: scroll to top of detail view.
+  // When closing: restore the home-page scroll position.
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    if (selectedInstructor !== null) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, savedScrollRef.current);
+    }
   }, [selectedInstructor]);
 
   // Lock body scroll while menu is open
@@ -730,7 +759,7 @@ const PrideMobileSite = () => {
       <PrMSInstructorDetail
         inst={MS_INSTRUCTORS[selectedInstructor]}
         idx={selectedInstructor}
-        onClose={() => setSelectedInstructor(null)}
+        onClose={closeInstructor}
       />
     );
   }
@@ -741,7 +770,7 @@ const PrideMobileSite = () => {
       <PrMSHero />
       <PrMSMarquee />
       <PrMSCourses />
-      <PrMSInstructors onSelect={setSelectedInstructor} />
+      <PrMSInstructors onSelect={openInstructor} />
       <PrMSTrust />
       <PrMSReviews />
       <PrMSFaq />
