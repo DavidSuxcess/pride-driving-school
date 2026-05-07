@@ -3,17 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>ПРАЙД — Автошкола · Красноярск</title>
-<meta name="description" content="Автошкола «Прайд» в Красноярске — обучение вождению на категории A и B. Опытные инструкторы, индивидуальный подход, поддержка на всех этапах сдачи экзамена." />
+<title>ПРАЙД · Редизайн автошколы</title>
+<meta name="description" content="Редизайн автошколы «Прайд» — концепт нового сайта в дерзком чёрно-оранжевом стиле." />
 <meta name="theme-color" content="#0A0A0A" />
 <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-
-<meta property="og:type" content="website" />
-<meta property="og:title" content="ПРАЙД — Автошкола · Красноярск" />
-<meta property="og:description" content="Обучение вождению на категории A и B. Опытные инструкторы и поддержка до получения прав." />
-<meta property="og:image" content="assets/logo.svg" />
-<meta name="twitter:card" content="summary_large_image" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -64,6 +57,7 @@
     margin: 0; text-transform: uppercase;
     letter-spacing: -0.01em; line-height: 0.9;
   }
+  /* Any element with inline fontFamily: var(--pr-display) renders bold (Oswald 700) */
   [style*="--pr-display"] { font-weight: 700; }
   .pr-ticker { font-weight: 700; }
 
@@ -111,22 +105,9 @@
   .pr-prof-num   { animation: pr-prof-num   0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   .pr-prof-line  { animation: pr-prof-line  0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; transform-origin: top; }
 
-  /* ── Enroll modal open animation ─────────────────────── */
-  @keyframes pr-modal-fade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-  @keyframes pr-modal-scale {
-    from { opacity: 0; transform: scale(0.95) translateY(12px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-  }
-  .pr-modal-backdrop { animation: pr-modal-fade 0.22s ease-out both; }
-  .pr-modal-card     { animation: pr-modal-scale 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-
   @media (prefers-reduced-motion: reduce) {
     .pr-menu-root, .pr-menu-item, .pr-menu-fade, .pr-menu-tape,
-    .pr-prof-photo, .pr-prof-rise, .pr-prof-num, .pr-prof-line,
-    .pr-modal-backdrop, .pr-modal-card {
+    .pr-prof-photo, .pr-prof-rise, .pr-prof-num, .pr-prof-line {
       animation: none !important;
     }
   }
@@ -245,6 +226,7 @@
 
   .pr-ticker { font-family: var(--pr-display); }
 
+  /* ── Production layout ────────────────────────────────────── */
   .pr-loader {
     position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
     background: #0A0A0A; z-index: 9999; transition: opacity 0.4s ease;
@@ -255,8 +237,13 @@
     letter-spacing: 0.04em; text-transform: uppercase;
   }
 
+  /* Desktop site is designed at 1920px. Sections inside use
+     maxWidth:1760 + padding so they extend full viewport — no empty side gutters. */
   #root .pr-site { width: 100%; }
 
+  /* Mobile stack — design is at 390px width.
+     CSS `zoom` on the stack itself scales it to fit each phone exactly:
+     visual width = 390 * --pr-mobile-zoom. JS sets the variable from viewport. */
   .pr-mobile-stack {
     width: 390px; margin: 0 auto; background: #0A0A0A;
     zoom: var(--pr-mobile-zoom, 1);
@@ -290,7 +277,6 @@
     const [isMobile, setIsMobile] = React.useState(
       typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAKPOINT
     );
-    const [enrollOpen, setEnrollOpen] = React.useState(false);
 
     React.useEffect(() => {
       const html = document.documentElement;
@@ -298,8 +284,11 @@
         const w = window.innerWidth;
         const mobile = w < MOBILE_BREAKPOINT;
         setIsMobile(mobile);
+        // html zoom not used anymore — clear in case it was set previously.
         html.style.zoom = '';
         if (mobile) {
+          // Scale .pr-mobile-stack so its visual width = viewport width.
+          // Cap at 1.10 (≈430/390) to avoid blow-up on tablets.
           const scale = Math.min(1.10, w / MOBILE_DESIGN_W);
           html.style.setProperty('--pr-mobile-zoom', scale.toFixed(4));
         } else {
@@ -312,20 +301,6 @@
     }, []);
 
     React.useEffect(() => {
-      const open = () => setEnrollOpen(true);
-      window.addEventListener('pride:openEnroll', open);
-      return () => window.removeEventListener('pride:openEnroll', open);
-    }, []);
-
-    React.useEffect(() => {
-      if (enrollOpen) {
-        const prev = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
-        return () => { document.body.style.overflow = prev; };
-      }
-    }, [enrollOpen]);
-
-    React.useEffect(() => {
       const loader = document.getElementById('pr-loader');
       if (loader) {
         loader.classList.add('hidden');
@@ -333,25 +308,15 @@
       }
     }, []);
 
-    const Modal = isMobile ? window.PrMSEnrollModal : window.PrEnrollModal;
-
     if (isMobile) {
       return (
-        <>
-          <div className="pr-mobile-stack">
-            <window.PrideMobileSite />
-          </div>
-          {enrollOpen && Modal && <Modal onClose={() => setEnrollOpen(false)} />}
-        </>
+        <div className="pr-mobile-stack">
+          <window.PrideMobileSite />
+        </div>
       );
     }
 
-    return (
-      <>
-        <window.PrideSite />
-        {enrollOpen && Modal && <Modal onClose={() => setEnrollOpen(false)} />}
-      </>
-    );
+    return <window.PrideSite />;
   }
 
   ReactDOM.createRoot(document.getElementById('root')).render(<App />);

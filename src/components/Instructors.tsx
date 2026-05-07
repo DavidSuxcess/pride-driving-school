@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { User, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useFocusTrap } from "../lib/useFocusTrap";
 
 const instructors = [
   {
@@ -44,6 +45,8 @@ const instructors = [
 export const Instructors = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
+  const closeImage = useCallback(() => setSelectedImage(null), []);
+  const imageTrapRef = useFocusTrap<HTMLDivElement>(selectedImage !== null, closeImage);
 
   return (
     <section id="instructors" className="relative w-full py-16 md:py-24 bg-white dark:bg-black text-black dark:text-white overflow-hidden transition-colors duration-300">
@@ -118,11 +121,13 @@ export const Instructors = () => {
       <AnimatePresence>
         {selectedImage && (
           <motion.div
+            ref={imageTrapRef}
+            tabIndex={-1}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 cursor-zoom-out"
+            onClick={closeImage}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 cursor-zoom-out focus:outline-none"
             role="dialog"
             aria-modal="true"
             aria-label="Фото инструктора"
@@ -131,7 +136,7 @@ export const Instructors = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              onClick={() => setSelectedImage(null)}
+              onClick={closeImage}
               className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
               aria-label="Закрыть"
             >
@@ -143,9 +148,9 @@ export const Instructors = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               src={selectedImage}
-              alt="Instructor"
+              alt="Фото инструктора"
               className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl cursor-default"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image itself
+              onClick={(e) => e.stopPropagation()}
             />
           </motion.div>
         )}

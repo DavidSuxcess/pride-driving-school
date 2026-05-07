@@ -37,20 +37,28 @@ export const sendMessageToTelegram = async (message: string): Promise<boolean> =
   }
 };
 
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, '&amp;')
+   .replace(/</g, '&lt;')
+   .replace(/>/g, '&gt;')
+   .replace(/"/g, '&quot;');
+
 export const formatEnrollmentMessage = (data: {
   name: string;
   phone: string;
   category: string;
 }) => {
-  // Remove all non-numeric characters for the tel: link
   const cleanPhone = data.phone.replace(/[^\d+]/g, '');
-  
+  const name = escapeHtml(data.name);
+  const phone = escapeHtml(data.phone);
+  const category = escapeHtml(data.category);
+
   return `
 <b>🔥 Новая заявка с сайта!</b>
 
-👤 <b>Имя:</b> ${data.name}
-📱 <b>Телефон:</b> <a href="tel:${cleanPhone}">${data.phone}</a>
-🚗 <b>Категория:</b> ${data.category}
+👤 <b>Имя:</b> ${name}
+📱 <b>Телефон:</b> <a href="tel:${cleanPhone}">${phone}</a>
+🚗 <b>Категория:</b> ${category}
 
 <i>Пожалуйста, свяжитесь с клиентом как можно скорее.</i>
 `;

@@ -1,13 +1,16 @@
 import { Phone, Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useFocusTrap } from "../lib/useFocusTrap";
 
 const PHONE_HREF = "tel:+79991234567";
 const PHONE_DISPLAY = "+7 (999) 123-45-67";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const closeMenu = useCallback(() => setIsMobileMenuOpen(false), []);
+  const menuTrapRef = useFocusTrap<HTMLDivElement>(isMobileMenuOpen, closeMenu);
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 'dark';
@@ -121,17 +124,22 @@ export const Header = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
+              ref={menuTrapRef}
+              tabIndex={-1}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Меню"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[9999] flex flex-col md:hidden bg-white dark:bg-black"
+              className="fixed inset-0 z-[9999] flex flex-col md:hidden bg-white dark:bg-black focus:outline-none"
               style={{ height: '100dvh' }}
             >
               <div className="flex items-center justify-between p-4 border-b border-black/10 dark:border-white/10">
                 <span className="text-xl font-bold text-black dark:text-white">Меню</span>
                 <button
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={closeMenu}
                   className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center active:scale-95 transition-all"
                   aria-label="Закрыть меню"
                 >
@@ -144,23 +152,23 @@ export const Header = () => {
                   <img src="images/logo.svg" alt="PRIDE Logo" className="w-full h-full object-contain" />
                 </div>
 
-                <a 
-                  href="#courses" 
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <a
+                  href="#courses"
+                  onClick={closeMenu}
                   className="text-3xl font-bold uppercase tracking-wide text-black dark:text-white hover:text-brand transition-colors"
                 >
                   Курсы
                 </a>
-                <a 
-                  href="#instructors" 
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <a
+                  href="#instructors"
+                  onClick={closeMenu}
                   className="text-3xl font-bold uppercase tracking-wide text-black dark:text-white hover:text-brand transition-colors"
                 >
                   Инструкторы
                 </a>
-                <a 
-                  href="#reviews" 
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <a
+                  href="#reviews"
+                  onClick={closeMenu}
                   className="text-3xl font-bold uppercase tracking-wide text-black dark:text-white hover:text-brand transition-colors"
                 >
                   Отзывы
