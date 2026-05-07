@@ -278,6 +278,7 @@
     const [isMobile, setIsMobile] = React.useState(
       typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAKPOINT
     );
+    const [enrollOpen, setEnrollOpen] = React.useState(false);
 
     React.useEffect(() => {
       const html = document.documentElement;
@@ -299,6 +300,20 @@
     }, []);
 
     React.useEffect(() => {
+      const open = () => setEnrollOpen(true);
+      window.addEventListener('pride:openEnroll', open);
+      return () => window.removeEventListener('pride:openEnroll', open);
+    }, []);
+
+    React.useEffect(() => {
+      if (enrollOpen) {
+        const prev = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = prev; };
+      }
+    }, [enrollOpen]);
+
+    React.useEffect(() => {
       const loader = document.getElementById('pr-loader');
       if (loader) {
         loader.classList.add('hidden');
@@ -306,15 +321,25 @@
       }
     }, []);
 
+    const Modal = isMobile ? window.PrMSEnrollModal : window.PrEnrollModal;
+
     if (isMobile) {
       return (
-        <div className="pr-mobile-stack">
-          <window.PrideMobileSite />
-        </div>
+        <>
+          <div className="pr-mobile-stack">
+            <window.PrideMobileSite />
+          </div>
+          {enrollOpen && Modal && <Modal onClose={() => setEnrollOpen(false)} />}
+        </>
       );
     }
 
-    return <window.PrideSite />;
+    return (
+      <>
+        <window.PrideSite />
+        {enrollOpen && Modal && <Modal onClose={() => setEnrollOpen(false)} />}
+      </>
+    );
   }
 
   ReactDOM.createRoot(document.getElementById('root')).render(<App />);

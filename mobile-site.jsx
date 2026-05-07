@@ -68,7 +68,7 @@ const PrMSHero = () => (
       </div>
 
       <div style={{ display: 'grid', gap: 10, marginBottom: 28 }}>
-        <button className="pr-btn-yellow" style={{ width: '100%', padding: '18px 22px', justifyContent: 'space-between' }}>
+        <button onClick={() => window.dispatchEvent(new CustomEvent('pride:openEnroll'))} className="pr-btn-yellow" style={{ width: '100%', padding: '18px 22px', justifyContent: 'space-between' }}>
           Записаться на курс <span style={{ fontSize: 18 }}>→</span>
         </button>
         <button className="pr-btn-ghost" style={{ width: '100%', padding: '14px 22px', fontSize: 13 }}>
@@ -309,7 +309,10 @@ const PrMSInstructorDetail = ({ inst, idx, onClose }) => (
 
     {/* CTAs */}
     <div className="pr-prof-rise" style={{ padding: '32px 20px 40px', animationDelay: '0.8s' }}>
-      <button className="pr-btn-yellow" style={{ width: '100%', justifyContent: 'center', padding: '18px 0', cursor: 'pointer' }}>
+      <button onClick={() => {
+        onClose();
+        setTimeout(() => window.dispatchEvent(new CustomEvent('pride:openEnroll')), 60);
+      }} className="pr-btn-yellow" style={{ width: '100%', justifyContent: 'center', padding: '18px 0', cursor: 'pointer' }}>
         Записаться к {inst.name === 'ЛЕВ' ? 'Льву' : 'Дмитрию'} <span style={{ fontSize: 18 }}>→</span>
       </button>
       <a href="tel:+73912345678" style={{
@@ -536,11 +539,224 @@ const PrMSFaq = () => {
   );
 };
 
-// ── Enroll ──────────────────────────────────────────────────
-const PrMSEnroll = () => {
-  const [step, setStep] = React.useState(2);
-  const [data, setData] = React.useState({ category: 'B', transmission: 'AT', course: 'Премиум' });
+// ── Enroll form (карточка с шагами 1-4, переиспользуется в модалке) ──
+const MS_WHATSAPP_PHONE = '79991234567'; // TODO: заменить на реальный номер
+
+const PrMSEnrollCard = () => {
+  const [step, setStep] = React.useState(1);
+  const [data, setData] = React.useState({ category: 'B', transmission: 'AT', course: 'Премиум', name: '', phone: '' });
   const update = (k, v) => setData(d => ({ ...d, [k]: v }));
+
+  React.useEffect(() => {
+    const handler = (e) => {
+      const map = { 'СТАРТ': 'Базовый', 'ПРЕМИУМ': 'Премиум', 'VIP': 'VIP' };
+      setData(d => ({ ...d, course: map[e.detail] || e.detail }));
+      setStep(2);
+    };
+    window.addEventListener('pride:selectCourse', handler);
+    return () => window.removeEventListener('pride:selectCourse', handler);
+  }, []);
+
+  const submit = () => {
+    if (!data.name.trim() || !data.phone.trim()) {
+      alert('Заполните имя и телефон');
+      return;
+    }
+    const text = encodeURIComponent(
+      `Здравствуйте! Хочу записаться на курс.\n\n` +
+      `Имя: ${data.name}\nТелефон: ${data.phone}\n` +
+      `Курс: «${data.course}»\nКатегория: ${data.category}\n` +
+      `Коробка: ${data.transmission === 'AT' ? 'Автомат' : 'Механика'}`
+    );
+    window.open(`https://wa.me/${MS_WHATSAPP_PHONE}?text=${text}`, '_blank');
+    setStep(4);
+  };
+
+  const stepTitle = { 1: 'ВЫБЕРИТЕ КУРС', 2: 'КАТЕГОРИЯ', 3: 'КОНТАКТ' }[step];
+
+  return (
+    <div style={{
+      background: '#0A0A0A', color: '#fff', borderRadius: 22,
+      padding: '24px 22px 26px', boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
+    }}>
+      {step <= 3 && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
+          {[1,2,3].map(s => (
+            <React.Fragment key={s}>
+              <div style={{
+                width: 24, height: 24, borderRadius: 999,
+                background: s <= step ? 'var(--pr-yellow)' : 'rgba(255,255,255,0.1)',
+                color: s <= step ? '#0A0A0A' : '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 800, fontSize: 11, fontFamily: 'var(--pr-mono)',
+              }}>{s}</div>
+              {s < 3 && <div style={{ flex: 1, height: 1, background: s < step ? 'var(--pr-yellow)' : 'rgba(255,255,255,0.1)' }} />}
+            </React.Fragment>
+          ))}
+          <span style={{ marginLeft: 'auto', fontFamily: 'var(--pr-mono)', fontSize: 10, color: 'var(--pr-mute)', letterSpacing: '0.1em' }}>
+            ШАГ {step}/3
+          </span>
+        </div>
+      )}
+
+      {step <= 3 && (
+        <h3 style={{ fontFamily: 'var(--pr-display)', fontSize: 26, marginBottom: 22 }}>{stepTitle}.</h3>
+      )}
+
+      {step === 1 && (
+        <div>
+          <div style={{ display: 'grid', gap: 10, marginBottom: 22 }}>
+            {[
+              { c: 'Базовый', p: '50 000 ₽' },
+              { c: 'Премиум', p: '65 000 ₽' },
+              { c: 'VIP', p: '110 000 ₽' },
+            ].map(({ c, p }) => (
+              <button key={c} onClick={() => update('course', c)} style={{
+                background: data.course === c ? 'var(--pr-yellow)' : 'transparent',
+                color: data.course === c ? '#0A0A0A' : '#fff',
+                border: data.course === c ? '1px solid var(--pr-yellow)' : '1px solid rgba(255,255,255,0.18)',
+                borderRadius: 12, padding: '14px 16px', textAlign: 'left',
+                fontSize: 14, fontWeight: 700, cursor: 'pointer',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              }}>
+                <span>{c}</span>
+                <span style={{ fontFamily: 'var(--pr-mono)', fontSize: 11, opacity: 0.8 }}>{p}</span>
+              </button>
+            ))}
+          </div>
+          <button className="pr-btn-yellow" onClick={() => setStep(2)} style={{
+            width: '100%', justifyContent: 'space-between', padding: '16px 22px',
+          }}>
+            <span>Дальше · категория</span>
+            <span style={{ fontSize: 18 }}>→</span>
+          </button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div>
+          <div style={{ marginBottom: 20 }}>
+            <div className="pr-num" style={{ marginBottom: 8, fontSize: 9 }}>КАТЕГОРИЯ ПРАВ</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              {['A', 'B'].map(c => (
+                <button key={c} onClick={() => update('category', c)} style={{
+                  padding: '16px 0', background: data.category === c ? 'var(--pr-yellow)' : 'transparent',
+                  color: data.category === c ? '#0A0A0A' : '#fff',
+                  border: data.category === c ? '1px solid var(--pr-yellow)' : '1px solid rgba(255,255,255,0.18)',
+                  borderRadius: 12, fontFamily: 'var(--pr-display)', fontSize: 26, cursor: 'pointer',
+                }}>{c}</button>
+              ))}
+            </div>
+          </div>
+          <div style={{ marginBottom: 22 }}>
+            <div className="pr-num" style={{ marginBottom: 8, fontSize: 9 }}>КОРОБКА ПЕРЕДАЧ</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              {[['AT','Автомат'], ['MT','Механика']].map(([k,t]) => (
+                <button key={k} onClick={() => update('transmission', k)} style={{
+                  padding: '14px 0', background: data.transmission === k ? 'var(--pr-yellow)' : 'transparent',
+                  color: data.transmission === k ? '#0A0A0A' : '#fff',
+                  border: data.transmission === k ? '1px solid var(--pr-yellow)' : '1px solid rgba(255,255,255,0.18)',
+                  borderRadius: 12, fontWeight: 700, fontSize: 14, cursor: 'pointer',
+                }}>{t}</button>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button className="pr-btn-ghost" onClick={() => setStep(1)} style={{ borderColor: 'rgba(255,255,255,0.2)', padding: '14px 18px' }}>← Назад</button>
+            <button className="pr-btn-yellow" onClick={() => setStep(3)} style={{ flex: 1, justifyContent: 'center', padding: '16px 22px' }}>
+              Дальше · контакт →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div>
+          <div style={{ marginBottom: 18 }}>
+            <div className="pr-num" style={{ marginBottom: 4, fontSize: 9 }}>КАК К ВАМ ОБРАЩАТЬСЯ</div>
+            <input className="pr-input" placeholder="Иван" defaultValue={data.name} onChange={(e) => update('name', e.target.value)} style={{ fontSize: 17 }} />
+          </div>
+          <div style={{ marginBottom: 22 }}>
+            <div className="pr-num" style={{ marginBottom: 4, fontSize: 9 }}>ТЕЛЕФОН</div>
+            <input className="pr-input" placeholder="+7 (___) ___-__-__" defaultValue={data.phone} onChange={(e) => update('phone', e.target.value)} style={{ fontSize: 17 }} />
+          </div>
+
+          <div style={{
+            padding: '12px 14px', background: 'rgba(228,84,0,0.08)', borderRadius: 10,
+            marginBottom: 18, border: '1px solid rgba(228,84,0,0.25)',
+          }}>
+            <div className="pr-num" style={{ color: 'var(--pr-yellow)', marginBottom: 4, fontSize: 9 }}>ВАШ ВЫБОР</div>
+            <div style={{ fontSize: 12, lineHeight: 1.5, color: '#fff' }}>
+              Курс <strong>«{data.course}»</strong> · Кат. <strong>{data.category}</strong> · {data.transmission === 'AT' ? 'Автомат' : 'Механика'}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button className="pr-btn-ghost" onClick={() => setStep(2)} style={{ borderColor: 'rgba(255,255,255,0.2)', padding: '14px 18px' }}>← Назад</button>
+            <button className="pr-btn-yellow" onClick={submit} style={{ flex: 1, justifyContent: 'center', padding: '16px 22px' }}>
+              Записаться →
+            </button>
+          </div>
+          <p style={{ marginTop: 14, fontSize: 10, color: 'var(--pr-mute)', lineHeight: 1.5 }}>
+            Откроется WhatsApp с заполненной заявкой. Перезвоним за 15 минут.
+          </p>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <div style={{
+            width: 64, height: 64, borderRadius: 999, background: 'var(--pr-yellow)', color: '#0A0A0A',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, fontWeight: 800,
+            margin: '0 auto 20px',
+          }}>✓</div>
+          <h3 style={{ fontFamily: 'var(--pr-display)', fontSize: 28, marginBottom: 12 }}>ОТКРЫЛИ WHATSAPP</h3>
+          <p style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--pr-mute-2)', marginBottom: 20 }}>
+            Нажмите «Отправить» в WhatsApp — куратор свяжется за 15 минут.
+          </p>
+          <button className="pr-btn-ghost" onClick={() => { setStep(1); setData({ category: 'B', transmission: 'AT', course: 'Премиум', name: '', phone: '' }); }} style={{ width: '100%', justifyContent: 'center' }}>
+            Отправить ещё одну заявку
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const PrMSEnrollModal = ({ onClose }) => (
+  <div style={{
+    position: 'fixed', inset: 0, zIndex: 9000,
+    background: 'var(--pr-yellow)', color: '#0A0A0A',
+    overflowY: 'auto', WebkitOverflowScrolling: 'touch',
+  }}>
+    <div style={{
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '14px 20px', borderBottom: '1px solid rgba(0,0,0,0.1)',
+      position: 'sticky', top: 0, background: 'var(--pr-yellow)', zIndex: 1,
+    }}>
+      <div className="pr-section-tag" style={{ fontSize: 10, color: '#0A0A0A' }}>ЗАПИСЬ НА КУРС</div>
+      <button onClick={onClose} aria-label="Закрыть" style={{
+        width: 38, height: 38, borderRadius: 999, background: '#0A0A0A', color: 'var(--pr-yellow)',
+        border: 0, fontSize: 20, fontWeight: 800, cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>×</button>
+    </div>
+    <div style={{ padding: '24px 20px 12px' }}>
+      <h2 style={{ fontFamily: 'var(--pr-display)', fontSize: 48, lineHeight: 0.92, marginBottom: 12 }}>
+        ТРИ<br />ПРОСТЫХ<br />ШАГА.
+      </h2>
+      <p style={{ fontSize: 13, lineHeight: 1.5, maxWidth: 320, marginBottom: 20 }}>
+        Без длинных анкет. Куратор перезванивает за 15 минут.
+      </p>
+    </div>
+    <div style={{ padding: '0 20px 40px' }}>
+      <PrMSEnrollCard />
+    </div>
+  </div>
+);
+window.PrMSEnrollModal = PrMSEnrollModal;
+
+const PrMSEnroll = () => {
   return (
     <section id="ms-enroll" style={{ background: 'var(--pr-yellow)', color: '#0A0A0A' }}>
       <div style={{ padding: '50px 20px 32px' }}>
@@ -572,75 +788,7 @@ const PrMSEnroll = () => {
 
       {/* Form card */}
       <div style={{ padding: '0 20px 50px' }}>
-        <div style={{
-          background: '#0A0A0A', color: '#fff', borderRadius: 22,
-          padding: '24px 22px 26px', boxShadow: '0 30px 60px rgba(0,0,0,0.2)',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
-            {[1,2,3].map(s => (
-              <React.Fragment key={s}>
-                <div style={{
-                  width: 24, height: 24, borderRadius: 999,
-                  background: s <= step ? 'var(--pr-yellow)' : 'rgba(255,255,255,0.1)',
-                  color: s <= step ? '#0A0A0A' : '#fff',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 800, fontSize: 11, fontFamily: 'var(--pr-mono)',
-                }}>{s}</div>
-                {s < 3 && <div style={{ flex: 1, height: 1, background: s < step ? 'var(--pr-yellow)' : 'rgba(255,255,255,0.1)' }} />}
-              </React.Fragment>
-            ))}
-            <span style={{ marginLeft: 'auto', fontFamily: 'var(--pr-mono)', fontSize: 10, color: 'var(--pr-mute)', letterSpacing: '0.1em' }}>
-              ШАГ {step}/3
-            </span>
-          </div>
-
-          <h3 style={{ fontFamily: 'var(--pr-display)', fontSize: 28, marginBottom: 22 }}>КАТЕГОРИЯ.</h3>
-
-          <div style={{ marginBottom: 20 }}>
-            <div className="pr-num" style={{ marginBottom: 8, fontSize: 9 }}>КАТЕГОРИЯ ПРАВ</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-              {['A', 'B'].map(c => (
-                <button key={c} onClick={() => update('category', c)} style={{
-                  padding: '16px 0', background: data.category === c ? 'var(--pr-yellow)' : 'transparent',
-                  color: data.category === c ? '#0A0A0A' : '#fff',
-                  border: data.category === c ? '1px solid var(--pr-yellow)' : '1px solid rgba(255,255,255,0.18)',
-                  borderRadius: 12, fontFamily: 'var(--pr-display)', fontSize: 26, cursor: 'pointer',
-                }}>{c}</button>
-              ))}
-            </div>
-          </div>
-
-          <div style={{ marginBottom: 22 }}>
-            <div className="pr-num" style={{ marginBottom: 8, fontSize: 9 }}>КОРОБКА ПЕРЕДАЧ</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-              {[['AT','Автомат'], ['MT','Механика']].map(([k,t]) => (
-                <button key={k} onClick={() => update('transmission', k)} style={{
-                  padding: '14px 0', background: data.transmission === k ? 'var(--pr-yellow)' : 'transparent',
-                  color: data.transmission === k ? '#0A0A0A' : '#fff',
-                  border: data.transmission === k ? '1px solid var(--pr-yellow)' : '1px solid rgba(255,255,255,0.18)',
-                  borderRadius: 12, fontWeight: 700, fontSize: 14, cursor: 'pointer',
-                }}>{t}</button>
-              ))}
-            </div>
-          </div>
-
-          <div style={{
-            padding: '12px 14px', background: 'rgba(228,84,0,0.08)', borderRadius: 10,
-            marginBottom: 18, border: '1px solid rgba(228,84,0,0.25)',
-          }}>
-            <div className="pr-num" style={{ color: 'var(--pr-yellow)', marginBottom: 4, fontSize: 9 }}>ПОДСКАЗКА</div>
-            <div style={{ fontSize: 12, lineHeight: 1.5, color: '#fff' }}>
-              Если сомневаетесь — берите автомат. Большинство современных машин такие.
-            </div>
-          </div>
-
-          <button className="pr-btn-yellow" onClick={() => setStep(3)} style={{
-            width: '100%', justifyContent: 'space-between', padding: '16px 22px',
-          }}>
-            <span>Дальше · контакт</span>
-            <span style={{ fontSize: 18 }}>→</span>
-          </button>
-        </div>
+        <PrMSEnrollCard />
       </div>
     </section>
   );
