@@ -1,0 +1,15 @@
+---
+const items = ['ЛИЦЕНЗИЯ № 7167-Л', 'РОСРЕЕСТР АВТОШКОЛ', 'ГИБДД РОССИИ', 'АВИТО · 5.0'];
+const track = [...items, ...items, ...items];
+---
+
+<div style="background:var(--pr-black);border-top:1px solid var(--pr-line-strong);border-bottom:1px solid var(--pr-line-strong);overflow:hidden;padding:24px 0;">
+  <div class="pr-marquee-track-rev" style="display:flex;gap:80px;white-space:nowrap;color:var(--pr-mute-2);width:max-content;">
+    {track.map((t) => (
+      <div style="display:flex;align-items:center;gap:80px;font-family:var(--pr-mono);font-size:14px;letter-spacing:0.12em;">
+        <span>{t}</span>
+        <span style="color:var(--pr-yellow);">✦</span>
+      </div>
+    ))}
+  </div>
+</div>
