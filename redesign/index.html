@@ -192,9 +192,9 @@
     letter-spacing: 0.04em;
   }
 
-  /* Desktop site — fix base width / scaling for narrow viewports.
-     Site was built at 1440px, allow horizontal scroll if viewport too narrow. */
-  #root .pr-site { width: 100%; }
+  /* Desktop site is designed at 1920px. We scale HTML via JS `zoom`
+     to fit any viewport ≥768px. */
+  #root .pr-site { width: 1920px; margin: 0 auto; }
 
   /* Mobile stack — show mobile screens stacked, full bleed */
   .pr-mobile-stack { width: 100%; max-width: 430px; margin: 0 auto; background: #0A0A0A; }
@@ -220,16 +220,29 @@
 <script type="text/babel" data-presets="react" src="mobile.jsx"></script>
 
 <script type="text/babel" data-presets="react">
+  const DESIGN_W = 1920;
+  const MOBILE_BREAKPOINT = 768;
+
   function App() {
     const [isMobile, setIsMobile] = React.useState(
-      typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+      typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAKPOINT
     );
 
     React.useEffect(() => {
-      const mql = window.matchMedia('(max-width: 767px)');
-      const handler = (e) => setIsMobile(e.matches);
-      mql.addEventListener('change', handler);
-      return () => mql.removeEventListener('change', handler);
+      const html = document.documentElement;
+      const update = () => {
+        const w = window.innerWidth;
+        const mobile = w < MOBILE_BREAKPOINT;
+        setIsMobile(mobile);
+        if (mobile) {
+          html.style.zoom = '';
+        } else {
+          html.style.zoom = w >= DESIGN_W ? '' : String(w / DESIGN_W);
+        }
+      };
+      update();
+      window.addEventListener('resize', update);
+      return () => window.removeEventListener('resize', update);
     }, []);
 
     React.useEffect(() => {

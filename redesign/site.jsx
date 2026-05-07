@@ -8,7 +8,7 @@
 
 const PrideSite = () => {
   return (
-    <div className="pr-site" style={{ width: 1440, position: 'relative' }}>
+    <div className="pr-site" style={{ width: 1920, position: 'relative' }}>
       <PrHeader />
       <PrHero />
       <PrMarquee />
@@ -58,7 +58,7 @@ const PrHeader = () => {
       borderBottom: '1px solid var(--pr-line)',
     }}>
       <div style={{
-        maxWidth: 1320, margin: '0 auto', padding: '20px 40px',
+        maxWidth: 1760, margin: '0 auto', padding: '24px 80px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
         {/* Logo */}
@@ -120,7 +120,7 @@ const PrHero = () => {
       </div>
 
       <div style={{
-        maxWidth: 1320, margin: '0 auto', padding: '120px 40px 100px',
+        maxWidth: 1760, margin: '0 auto', padding: '140px 80px 120px',
         position: 'relative', zIndex: 1,
       }}>
         {/* Eyebrow */}
@@ -208,8 +208,8 @@ const PrStats = () => {
     { num: '5.0', unit: '★', label: 'средняя оценка на Авито' },
   ];
   return (
-    <section style={{ padding: '120px 40px 100px', background: 'var(--pr-black)' }}>
-      <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+    <section style={{ padding: '140px 80px 120px', background: 'var(--pr-black)' }}>
+      <div style={{ maxWidth: 1760, margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 60 }}>
           <div className="pr-section-tag">[01] ЦИФРЫ</div>
           <div style={{ maxWidth: 480, color: 'var(--pr-mute-2)', fontSize: 16, lineHeight: 1.5 }}>
@@ -291,8 +291,8 @@ const PrCourses = () => {
     },
   ];
   return (
-    <section id="courses" style={{ padding: '140px 40px', background: 'var(--pr-paper)', color: 'var(--pr-paper-ink)' }}>
-      <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+    <section id="courses" style={{ padding: '160px 80px', background: 'var(--pr-paper)', color: 'var(--pr-paper-ink)' }}>
+      <div style={{ maxWidth: 1760, margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 80 }}>
           <div>
             <div className="pr-section-tag" style={{ color: '#3a3a3a' }}>[02] КУРСЫ</div>
@@ -410,9 +410,9 @@ const PrInstructors = () => {
     },
   ];
   return (
-    <section id="instructors" style={{ padding: '140px 40px', background: 'var(--pr-black)', position: 'relative' }}>
+    <section id="instructors" style={{ padding: '160px 80px', background: 'var(--pr-black)', position: 'relative' }}>
       <div className="pr-grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.4 }} />
-      <div style={{ maxWidth: 1320, margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: 1760, margin: '0 auto', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 80 }}>
           <div>
             <div className="pr-section-tag">[03] КОМАНДА</div>
@@ -531,8 +531,8 @@ const PrReviews = () => {
   ];
   const photos = [1,2,3,4,5,1,2,3,4,5,1,2,3].map(n => `assets/student_${((n-1)%5)+1}.jpg`);
   return (
-    <section id="reviews" style={{ padding: '140px 0 80px', background: 'var(--pr-black)' }}>
-      <div style={{ maxWidth: 1320, margin: '0 auto', padding: '0 40px', marginBottom: 60 }}>
+    <section id="reviews" style={{ padding: '160px 0 100px', background: 'var(--pr-black)' }}>
+      <div style={{ maxWidth: 1760, margin: '0 auto', padding: '0 80px', marginBottom: 80 }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
           <div>
             <div className="pr-section-tag">[04] КУРСАНТЫ И ОТЗЫВЫ</div>
@@ -564,7 +564,7 @@ const PrReviews = () => {
       </div>
 
       {/* Reviews grid — masonry-ish 2 columns */}
-      <div style={{ maxWidth: 1320, margin: '40px auto 0', padding: '0 40px' }}>
+      <div style={{ maxWidth: 1760, margin: '40px auto 0', padding: '0 80px' }}>
         <div style={{ columnCount: 4, columnGap: 16 }}>
           {reviews.map((r, i) => (
             <article key={i} className="pr-card" style={{
@@ -606,8 +606,8 @@ const PrFaq = () => {
     { q: 'ЕСЛИ НЕ СДАМ ГИБДД С ПЕРВОГО РАЗА?', a: 'На тарифе «Премиум» — все попытки бесплатны, мы вас сопровождаем. На «Базовом» — повторные сборы (350 ₽) и время инструктора (1 600 ₽/час).' },
   ];
   return (
-    <section id="faq" style={{ padding: '140px 40px', background: 'var(--pr-paper)', color: 'var(--pr-paper-ink)' }}>
-      <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '340px 1fr', gap: 120 }}>
+    <section id="faq" style={{ padding: '160px 80px', background: 'var(--pr-paper)', color: 'var(--pr-paper-ink)' }}>
+      <div style={{ maxWidth: 1760, margin: '0 auto', display: 'grid', gridTemplateColumns: '420px 1fr', gap: 160 }}>
         <div>
           <div className="pr-section-tag" style={{ color: '#3a3a3a' }}>[05] ВОПРОСЫ</div>
           <h2 style={{ fontSize: 60, marginTop: 24, color: '#0A0A0A', lineHeight: 0.95 }}>
@@ -665,8 +665,8 @@ const PrEnroll = () => {
   return (
     <section id="enroll" style={{ padding: '0', background: 'var(--pr-yellow)', color: '#0A0A0A', position: 'relative', overflow: 'hidden' }}>
       <div style={{
-        maxWidth: 1320, margin: '0 auto', padding: '120px 40px',
-        display: 'grid', gridTemplateColumns: '1fr 540px', gap: 60,
+        maxWidth: 1760, margin: '0 auto', padding: '140px 80px',
+        display: 'grid', gridTemplateColumns: '1fr 620px', gap: 80,
       }}>
         <div>
           <div className="pr-section-tag" style={{ color: '#0A0A0A' }}>[06] ЗАПИСЬ</div>
@@ -830,8 +830,8 @@ const PrEnroll = () => {
 // ── Footer ───────────────────────────────────────────────────
 const PrFooter = () => {
   return (
-    <footer style={{ background: 'var(--pr-black)', borderTop: '1px solid var(--pr-line)', padding: '80px 40px 40px' }}>
-      <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+    <footer style={{ background: 'var(--pr-black)', borderTop: '1px solid var(--pr-line)', padding: '100px 80px 60px' }}>
+      <div style={{ maxWidth: 1760, margin: '0 auto' }}>
         {/* Big wordmark */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
