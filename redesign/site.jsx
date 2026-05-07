@@ -63,7 +63,7 @@ const PrHeader = () => {
       }}>
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <PrLion size={36} color="#E45400" />
+          <PrLion size={56} color="#E45400" />
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{ fontFamily: 'var(--pr-display)', fontSize: 22, letterSpacing: '0.04em' }}>ПРАЙД</span>
             <span style={{ fontFamily: 'var(--pr-mono)', fontSize: 9, letterSpacing: '0.2em', color: 'var(--pr-mute)', marginTop: 3 }}>

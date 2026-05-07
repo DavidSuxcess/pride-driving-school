@@ -19,11 +19,11 @@ const PrMSHeader = ({ onMenuOpen }) => (
       padding: '14px 20px', display: 'flex',
       alignItems: 'center', justifyContent: 'space-between',
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <PrLion size={30} color="#E45400" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <PrLion size={48} color="#E45400" />
         <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-          <span style={{ fontFamily: 'var(--pr-display)', fontSize: 18, letterSpacing: '0.04em' }}>ПРАЙД</span>
-          <span style={{ fontFamily: 'var(--pr-mono)', fontSize: 8, letterSpacing: '0.18em', color: 'var(--pr-mute)', marginTop: 2 }}>
+          <span style={{ fontFamily: 'var(--pr-display)', fontSize: 22, letterSpacing: '0.04em' }}>ПРАЙД</span>
+          <span style={{ fontFamily: 'var(--pr-mono)', fontSize: 9, letterSpacing: '0.18em', color: 'var(--pr-mute)', marginTop: 3 }}>
             ШКОЛА ВОЖДЕНИЯ
           </span>
         </div>
